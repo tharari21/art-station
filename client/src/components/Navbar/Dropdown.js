@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Dropdown = () => {
+    // TODO make this a grid and pass it props of array of items so it's dynamic
   return (
     <div className="navbar__dropdown">
       <div>
