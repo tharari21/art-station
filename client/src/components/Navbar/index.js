@@ -1,4 +1,5 @@
 import {NavLink} from 'react-router-dom'
+import Dropdown from './Dropdown';
 import "./navbar.css"
 const Navbar = () => {
   return (
@@ -14,16 +15,7 @@ const Navbar = () => {
             <NavLink className="navbar__link" to="/store">
               Supplies
             </NavLink>
-            <div className="navbar__dropdown">
-              <ul>
-                <li>
-                  <a>One</a>
-                </li>
-                <li>
-                  <a>Two</a>
-                </li>
-              </ul>
-            </div>
+            <Dropdown />
           </li>
           <li className="navbar__item">
             <NavLink className="navbar__link" to="/parties">
