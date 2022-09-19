@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: Faker::Internet.unique.password)
+
