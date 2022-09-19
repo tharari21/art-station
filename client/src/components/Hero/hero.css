@@ -1,0 +1,58 @@
+.hero {
+    height: 90vh;
+    /* background-image: url(../../assets/white-paper-texture.jpg) */
+    /* background-color: bisque; */
+    background-image: url(../../assets/paintbrushes.jpg);
+    background-size: cover;
+    /* background-color: #00A5E3; */
+    /* background-color: #00A5E3; */
+    color: #B83026;
+}
+.hero > div {
+    position: relative;
+}
+.hero__info {
+    width: 900px;
+    position: absolute;
+    left: 120px;
+    top: 150px;
+}
+.hero__title {
+    font-size: 7em;
+    font-weight: bold;
+}
+
+.hero__subtitle {
+    padding: 1em;
+    font-size: 3em;
+    width: 600px;
+}
+.hero__buttons {
+    position: absolute;
+    left: 200px;
+    top: 500px;
+}
+.hero__button {
+    width: 200px;
+    height: 48px;
+    border: none;
+    background-color: #F14F3F;
+    color: white;
+    font-size: 1.4em;
+    border-radius: 4px;
+    margin: 0 14px;
+    cursor:pointer;
+    transition: .4s;
+}
+.hero__button:hover {
+    opacity: 0.7;
+}
+.button__link {
+    color: inherit;
+    text-decoration: none;
+    
+}
+.button__left {
+}
+.button__left {
+}

@@ -7,26 +7,26 @@ const Dropdown = () => {
       <div>
         <ul className="navbar__dropdown-list">
           <li className="navbar__dropdown-item">
-            <a>Pencils</a>
+            <a href="/">Pencils</a>
           </li>
           <li className="navbar__dropdown-item">
-            <a>Markers</a>
+            <a href="/">Markers</a>
           </li>
           <li className="navbar__dropdown-item">
-            <a>Markers</a>
+            <a href="/">Markers</a>
           </li>
         </ul>
       </div>
       <div>
         <ul className="navbar__dropdown-list">
           <li className="navbar__dropdown-item">
-            <a>Pencils</a>
+            <a href="/">Pencils</a>
           </li>
           <li className="navbar__dropdown-item">
-            <a>Markers</a>
+            <a href="/">Markers</a>
           </li>
           <li className="navbar__dropdown-item">
-            <a>Markers</a>
+            <a href="/">Markers</a>
           </li>
         </ul>
       </div>

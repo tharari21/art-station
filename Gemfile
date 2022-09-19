@@ -10,6 +10,8 @@ gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 gem "pg", "~> 1.1"
 gem "bcrypt"
 gem "jwt"
+gem 'rack-cors'
+gem "aws-sdk-s3", require: false
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 

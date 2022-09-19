@@ -34,12 +34,12 @@ const Navbar = () => {
           </li>
         </ul>
         <ul className="navbar__menu navbar__menu--auth">
-          <li className="navbar__item">
+          <li className="navbar__item navbar__item--auth">
             <NavLink className="navbar__link" to="/login">
               Login
             </NavLink>
           </li>
-          <li className="navbar__item">
+          <li className="navbar__item navbar__item--auth">
             <NavLink className="navbar__link" to="/register">
               Sign Up
             </NavLink>

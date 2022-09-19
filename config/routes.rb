@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # login and signup
   post '/login', to: 'auth#create'
   post '/register', to: 'users#create'
+
+  get '/classes', to: 'painting_classes#index'
 end
