@@ -1,36 +1,25 @@
 class ApplicationController < ActionController::API
-      include ::ActionController::Cookies
+    include ActionController::Cookies
     # skip_before_action :verify_authenticity_token
-    # before_action :authorized
-
+    
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
 
-    SECRET_KEY = Rails.application.secrets.secret_key_base. to_s
+    SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
     
     def encode_token(payload, exp=24.hours.from_now.to_i)
         payload[:exp] = exp
         JWT.encode(payload, SECRET_KEY)
     end
-    def auth_headers
-        request.headers["Authorization"]
-    end
+    # def auth_headers
+    #     request.headers["Authorization"]
+    # end
     def decoded_token
         jwt = cookies.signed[:jwt]
         JWT.decode(jwt, SECRET_KEY)
-        # token = auth_headers.split(" ")[1]
-        # if auth_headers
-            # token = auth_headers.split(" ")[1]
-            # begin
-            # JWT.decode(token, SECRET_KEY)
-            # rescue JWT::DecodeError
-            #     render json: {message: "Invalid token"}, status: :unauthorized
-            # rescue JWT::ExpiredSignature
-            #     render json: {message: "Token expired"}, status: :unauthorized
-            # end
-        # end
     end
-    def current_user
+    def get_current_user
+        puts "That's weird"
         payload = decoded_token
         if payload
             user_id = payload[0]['user_id']
@@ -38,7 +27,7 @@ class ApplicationController < ActionController::API
         end
     end
     def logged_in?
-        !!current_user
+        !!get_current_user
     end
     def authorized
         begin

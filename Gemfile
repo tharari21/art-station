@@ -14,6 +14,7 @@ gem 'rack-cors'
 gem "aws-sdk-s3", require: false
 gem 'faker'
 gem 'active_model_serializers'
+gem "byebug"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
