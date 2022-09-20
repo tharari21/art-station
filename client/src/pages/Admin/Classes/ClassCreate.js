@@ -1,4 +1,4 @@
-import CreateClassForm from "../../components/Classes/CreateClassForm"
+import CreateClassForm from "../../../components/Classes/CreateClassForm"
 const ClassCreate = () => {
   return (
     <div>

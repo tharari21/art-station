@@ -3,8 +3,8 @@ import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
 import Auth from './pages/Auth/Auth';
-import Classes from './pages/Classes';
-import ClassRegister from './pages/ClassRegister';
+import Classes from './pages/Classes/Classes';
+import ClassRegister from './pages/Classes/ClassRegister';
 function App() {
   return (
     <div className="App">

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {convertDate} from './util'
 const ClassCard = ({ classObj }) => {
     const navigate = useNavigate()
-    const {weekday, month, day, year, hour} = convertDate(classObj.date)
-    const convertedDate = `${weekday} ${month}/${day}/${year} @ ${hour}`
+    const {weekday, month, day, year, time} = convertDate(classObj.date)
+    const convertedDate = `${weekday} ${month}/${day}/${year} @ ${time}`
     const handleClick = () => {
       // Might need to encrypt id that goes into url
       navigate(`/classes/${classObj.id}/register/new`, {state: classObj});

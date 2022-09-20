@@ -1,4 +1,4 @@
-import ClassContainer from '../components/Classes/ClassContainer'
+import ClassContainer from '../../components/Classes/ClassContainer'
 
 const Classes = () => {
     

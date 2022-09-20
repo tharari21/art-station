@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+      include ::ActionController::Cookies
     # skip_before_action :verify_authenticity_token
     # before_action :authorized
 
@@ -15,16 +16,19 @@ class ApplicationController < ActionController::API
         request.headers["Authorization"]
     end
     def decoded_token
-        if auth_headers
-            token = auth_headers.split(" ")[1]
+        jwt = cookies.signed[:jwt]
+        JWT.decode(jwt, SECRET_KEY)
+        # token = auth_headers.split(" ")[1]
+        # if auth_headers
+            # token = auth_headers.split(" ")[1]
             # begin
-            JWT.decode(token, SECRET_KEY)
+            # JWT.decode(token, SECRET_KEY)
             # rescue JWT::DecodeError
             #     render json: {message: "Invalid token"}, status: :unauthorized
             # rescue JWT::ExpiredSignature
             #     render json: {message: "Token expired"}, status: :unauthorized
             # end
-        end
+        # end
     end
     def current_user
         payload = decoded_token
@@ -49,7 +53,7 @@ class ApplicationController < ActionController::API
     private
 
     def render_record_invalid(e)
-        return render json: {message: e.invalid.record.full_messages}, status: :unprocessable_entity
+        return render json: {message: e.record.errors.full_messages}, status: :unprocessable_entity
     end
     def render_record_not_found(e)
         puts "record not found"

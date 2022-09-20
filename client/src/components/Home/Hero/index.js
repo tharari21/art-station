@@ -25,16 +25,16 @@ const Hero = () => {
             today!
           </p> */}
           <div className="hero__buttons">
+            <NavLink className="button__link button__left" to="/classes">
             <button className="hero__button">
-              <NavLink className="button__link button__left" to="/classes">
                 Book a Class
-              </NavLink>
             </button>
-            <button className="hero__button">
-              <NavLink className="button__link button__right" to="/contact">
-                Contact Us!
-              </NavLink>
-            </button>
+            </NavLink>
+            <NavLink className="button__link button__right" to="/contact">
+              <button className="hero__button">
+                  Contact Us!
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>

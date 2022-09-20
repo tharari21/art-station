@@ -1,10 +1,11 @@
-import Hero from "../components/Hero"
-import InfoSection from "../components/InfoSection"
+import Hero from "../components/Home/Hero"
+import UpdatesSection from "../components/Home/UpdatesSection"
 const Home = () => {
   return (
     <main>
+      
         <Hero />
-        <InfoSection />
+        <UpdatesSection />
     </main>
   )
 }

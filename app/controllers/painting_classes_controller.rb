@@ -13,6 +13,9 @@ class PaintingClassesController < ApplicationController
         upcoming_classes = PaintingClass.where('date > ?', Date.current)
         render json: upcoming_classes
     end
+    def currently_occupied
+        render json: {occupied_seats: PaintingClassRegistration.where('painting_class_id=?', params[:id]).count}        
+    end
     private
     def painting_class_params
         params.permit(:date, :painting, :max_capacity, :price)

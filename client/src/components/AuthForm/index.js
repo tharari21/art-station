@@ -19,6 +19,7 @@ const AuthForm = ({type}) => {
         e.preventDefault()
         const req = await fetch(`http://localhost:3000/${type}`, {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",

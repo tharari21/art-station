@@ -188,6 +188,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  actiontext
   active_model_serializers
   aws-sdk-s3
   bcrypt
