@@ -10,10 +10,10 @@ const Hero = () => {
           <h3 className="hero__subtitle">
             Brooklyn's Paint, Party, and Art Supply Place
           </h3>
-          <p className="hero__description">
+          {/* <p className="hero__description">
             Art Station is Brooklyn's #1 Local Art Supply Store!
-          </p>
-          <p className="hero__description">
+          </p> */}
+          {/* <p className="hero__description">
             We offer every art related family activity you could want in one
             place.
           </p>
@@ -23,7 +23,7 @@ const Hero = () => {
             in-house custom framing, a private event space for children's
             parties and adult paint nights, and art classes every week! Visit us
             today!
-          </p>
+          </p> */}
           <div className="hero__buttons">
             <button className="hero__button">
               <NavLink className="button__link button__left" to="/classes">

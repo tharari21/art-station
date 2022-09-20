@@ -2,11 +2,10 @@
     height: 90vh;
     /* background-image: url(../../assets/white-paper-texture.jpg) */
     /* background-color: bisque; */
-    background-image: url(../../assets/paintbrushes.jpg);
-    background-size: cover;
+    /* background-image: url(../../assets/paintbrushes.jpg);
+    background-size: cover; */
+    background-color: #FFF5E4;
     /* background-color: #00A5E3; */
-    /* background-color: #00A5E3; */
-    color: #B83026;
     /* Not working - figure out how to add font to one specific area */
     font-family: 'Dancing Script', cursive;
 }
@@ -20,8 +19,9 @@
 .hero__info {
     width: 95%;
     height: 90%;
-    padding: 0 24px;
+    padding: 32px;
     margin-left: 2em;
+    margin-top: 2em;
 }
 .hero__title {
     font-size: 7em;
@@ -34,10 +34,10 @@
     width: 600px;
 }
 .hero__description {
-    margin-left: 4em;
+    margin-left: 3em;
     margin-bottom: 1em;
     font-size: 1.8em;
-    width: 65%;
+    width: 50%;
 }
 .hero__buttons {
    margin-left: 8em;
@@ -47,7 +47,7 @@
     width: 200px;
     height: 48px;
     border: none;
-    background-color: #F14F3F;
+    background-color: #850E35;
     color: white;
     font-size: 1.4em;
     border-radius: 4px;

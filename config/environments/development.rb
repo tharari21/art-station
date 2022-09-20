@@ -46,6 +46,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   config.active_storage.service = :local
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

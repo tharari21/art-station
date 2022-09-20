@@ -9,6 +9,10 @@ class PaintingClassesController < ApplicationController
             render json: {message: "You must be an admin to create a class"}, status: :unauthorized
         end
     end
+    def upcoming
+        upcoming_classes = PaintingClass.where('date > ?', Date.current)
+        render json: upcoming_classes
+    end
     private
     def painting_class_params
         params.permit(:date, :painting, :max_capacity, :price)

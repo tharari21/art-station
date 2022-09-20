@@ -1,5 +1,6 @@
 import {NavLink} from 'react-router-dom'
 import Dropdown from './Dropdown';
+import {AiFillCaretDown} from 'react-icons/ai'
 import "./navbar.css"
 const Navbar = () => {
   return (
@@ -13,7 +14,7 @@ const Navbar = () => {
           </li>
           <li className="navbar__item navbar__item--hoverable">
             <NavLink className="navbar__link" to="/store">
-              Supplies
+              Supplies <AiFillCaretDown size='.5em' style={{float: 'left'}}/>
             </NavLink>
             <Dropdown />
           </li>

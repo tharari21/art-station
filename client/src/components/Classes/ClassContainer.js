@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-
+import ClassCard from './ClassCard';
 const ClassContainer = () => {
     const [classes, setClasses] = useState(null);
     const [errors, setErrors] = useState(null);
@@ -8,6 +8,7 @@ const ClassContainer = () => {
         const req = await fetch("http://localhost:3000/classes/upcoming");
         const res = await req.json();
         if (req.ok) {
+            console.log(res)
           setClasses(res);
         } else {
           setErrors(res);
@@ -21,8 +22,8 @@ const ClassContainer = () => {
     }, []);
 
   return (
-    <div>
-        {classes?.map(class_ => <ClassCard classObj={class_}/>)}
+    <div className="card-container">
+        {classes?.map(class_ => <ClassCard key={class_.id} classObj={class_}/>)}
     </div>
   )
 }
