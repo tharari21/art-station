@@ -1,7 +1,7 @@
 import {Redirect} from 'react-router-dom'
 
-const ProtectedRoute = (Component) => {
-    const AdminRoute = () => {
+const AdminRoute = (Component) => {
+    const Authorize = ({isAdmin}) => {
         if (isAdmin) {
             return <Component />
         } else {
@@ -9,7 +9,7 @@ const ProtectedRoute = (Component) => {
         }
 
     }
-    return AdminRoute
+    return Authorize;
 }
 
-export default ProtectedRoute
+export default AdminRoute;

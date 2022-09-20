@@ -3,21 +3,28 @@ import "./form.css"
 import { AiFillGoogleCircle, AiFillFacebook } from "react-icons/ai";
 
 const AuthForm = ({type}) => {
-    const form = useRef()
+    const initialFormData = type === 'login' ? {
+      username: "",
+      password: ""
+    } : {
+      username: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+
+    } 
+    const [formData, setFormData] = useState(initialFormData)
     const [errors, setErrors] = useState(null)
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(form.current)
-        const data = new FormData(form.current)
-        console.log(data)
         const req = await fetch(`http://localhost:3000/${type}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: data
-        })
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
         const res = await req.json()
         console.log('res', res)
         if (req.ok) {
@@ -26,17 +33,20 @@ const AuthForm = ({type}) => {
             setErrors(res)
         }
     }
+    const handleChange = (e) => {
+      setFormData({...formData, [e.target.name] : e.target.value})
+    }
   return (
     <div className="auth-form">
       <h1 className="auth-form__title">
         {type.slice(0, 1).toUpperCase() + type.slice(1)}
       </h1>
-      <form onSubmit={handleSubmit} ref={form}>
-        <input name="username" className="auth-form__form-control" placeholder="Username" />
-        {type === "register" && <input name="email" type="email" placeholder="Email" />}
-        <input name="password" type="password" placeholder="Password" />
+      <form onSubmit={handleSubmit} >
+        <input onChange={handleChange} name="username" className="auth-form__form-control" placeholder="Username" />
+        {type === "register" && <input onChange={handleChange} name="email" type="email" placeholder="Email" />}
+        <input onChange={handleChange} name="password" type="password" placeholder="Password" />
         {type === "register" && (
-          <input name="password_confirmation" type="password" placeholder="Password Confirmation" />
+          <input onChange={handleChange} name="password_confirmation" type="password" placeholder="Password Confirmation" />
         )}
 
         <input className="submit-btn" type="submit" />

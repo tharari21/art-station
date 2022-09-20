@@ -1,22 +1,13 @@
 import "./classes.css"
 import { useNavigate } from "react-router-dom";
-
+import {convertDate} from './util'
 const ClassCard = ({ classObj }) => {
     const navigate = useNavigate()
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const date = new Date(classObj.date)
-    const convertedDate = weekdays[date.getDay()] + ", " + date.getMonth() + "/" + date.getDay() + "/" + date.getFullYear() + " @ " + date.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+    const {weekday, month, day, year, hour} = convertDate(classObj.date)
+    const convertedDate = `${weekday} ${month}/${day}/${year} @ ${hour}`
     const handleClick = () => {
       // Might need to encrypt id that goes into url
-      navigate(`/classes/${classObj.id}/register`);
+      navigate(`/classes/${classObj.id}/register/new`, {state: classObj});
     }
   return (
     <div className="card" onClick={handleClick}>

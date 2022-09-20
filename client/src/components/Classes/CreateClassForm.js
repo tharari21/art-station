@@ -1,5 +1,4 @@
-import React from 'react'
-
+import AdminRoute from "../utils/AdminRoute";
 const CreateClassForm = () => {
   return (
     <div>CreateClassForm</div>
@@ -7,4 +6,4 @@ const CreateClassForm = () => {
 }
 
 // Protects the component
-export default withAuth(CreateClassForm);
+export default AdminRoute(CreateClassForm);
