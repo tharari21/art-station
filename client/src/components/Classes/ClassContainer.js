@@ -8,7 +8,7 @@ const ClassContainer = () => {
         const req = await fetch("http://localhost:3000/classes/upcoming");
         const res = await req.json();
         if (req.ok) {
-            console.log(res)
+          console.log(res)
           setClasses(res);
         } else {
           setErrors(res);

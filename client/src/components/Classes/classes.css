@@ -25,3 +25,27 @@
 .card__name {
     font-size: 1.8em;
 }
+.card__price {
+    float: right;
+    margin-right: 3em;
+
+}
+.card__date {
+    margin-left: 2em;
+    margin-top: .6em;
+}
+.form-container {
+    display: flex;
+    justify-content: space-around;
+}
+/* .form__details {
+    display: flex;
+    flex-direction: column;
+} */
+.register-class-form {
+    width: 60%;
+}
+.class-form__image {
+    float: left;
+    margin-bottom: 4em;
+}

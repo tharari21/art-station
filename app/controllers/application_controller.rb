@@ -4,6 +4,8 @@ class ApplicationController < ActionController::API
     
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
+    rescue_from JWT::DecodeError, with: :render_invalid_token
+    rescue_from JWT::ExpiredSignature, with: :render_expired_token
 
     SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
     
@@ -16,36 +18,41 @@ class ApplicationController < ActionController::API
     # end
     def decoded_token
         jwt = cookies.signed[:jwt]
-        JWT.decode(jwt, SECRET_KEY)
+        begin
+            JWT.decode(jwt, SECRET_KEY)
+        rescue JWT::DecodeError
+            nil
+        end
     end
     def get_current_user
-        puts "That's weird"
         payload = decoded_token
         if payload
             user_id = payload[0]['user_id']
             @user = User.find(user_id)
+        
         end
+        
     end
     def logged_in?
         !!get_current_user
     end
     def authorized
-        begin
-            render json: {message: "Please log in"}, status: :unauthorized unless logged_in?
-        rescue JWT::DecodeError
-            render json: {message: "Invalid token"}, status: :unauthorized
-        rescue JWT::ExpiredSignature
-            render json: {message: "Token expired"}, status: :unauthorized
-        end
+        render json: {message: "Please log in"}, status: :unauthorized unless logged_in?
     end
     
     private
-
+    
     def render_record_invalid(e)
         return render json: {message: e.record.errors.full_messages}, status: :unprocessable_entity
     end
     def render_record_not_found(e)
         puts "record not found"
         return render json: {message: "#{e.model} not found"}, status: :not_found
+    end
+    def render_invalid_token(e)
+        render json: {message: "Invalid token"}, status: :unauthorized
+    end
+    def render_expired_token
+        render json: {message: "Token expired"}, status: :unauthorized
     end
 end

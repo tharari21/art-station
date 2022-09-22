@@ -1,0 +1,14 @@
+.admin-dashboard {
+    /* display: grid; */
+    
+    margin: 5em;
+}
+.party-request-container {
+    border: 2px solid black;
+    width: 600px;
+    height: 600px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,.6);
+
+
+}

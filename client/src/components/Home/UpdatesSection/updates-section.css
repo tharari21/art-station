@@ -2,7 +2,7 @@
     height: 100vh;
     /* background-image: url(../../assets/paintbrushes.jpg);
     background-size: cover; */
-    background-color: #FFC4C4;
+    /* background-color: #FFC4C4; */
     overflow: auto; /* Apparently margins collapse so to avoid this use this*/
 }
 

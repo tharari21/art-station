@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   get '/updates/latest', to: 'updates#latest'
 
   post '/login', to: 'auth#create'
+  delete '/logout', to: 'auth#destroy'
   post '/register', to: 'users#create'
+  get '/logged_in', to: 'auth#show'
 
   get '/classes', to: 'painting_classes#index'
   get '/classes/upcoming', to: 'painting_classes#upcoming'

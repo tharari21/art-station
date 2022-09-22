@@ -1,4 +1,3 @@
-import AdminRoute from "../utils/AdminRoute";
 const CreateClassForm = () => {
   return (
     <div>CreateClassForm</div>
@@ -6,4 +5,4 @@ const CreateClassForm = () => {
 }
 
 // Protects the component
-export default AdminRoute(CreateClassForm);
+export default CreateClassForm;

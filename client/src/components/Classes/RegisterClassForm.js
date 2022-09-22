@@ -76,15 +76,25 @@ const RegisterClassForm = () => {
       
     }
   return (
-    <div>
-      <img src={painting.image} width="400px" height="400px" />
-      <h2>
-        {painting.name.slice(0, 1).toUpperCase() + painting.name.slice(1)}
-      </h2>
-      <p>Date: {`${weekday}, ${month}/${day}/${year}`}</p>
-      <p>Time: {time}</p>
-      <p>Total Cost: ${price * formData.quantity}</p>
-      <form onSubmit={handleSubmit}>
+    <div className="form-container">
+      <div className="class-form__details">
+      </div>
+      <div >
+        <img
+          className="class-form__image"
+          src={painting.image}
+          width="400px"
+          height="400px"
+        />
+        <h2>
+          {painting.name.slice(0, 1).toUpperCase() + painting.name.slice(1)}
+        </h2>
+        <p>Date: {`${weekday}, ${month}/${day}/${year}`}</p>
+        <p>Time: {time}</p>
+        <p>Total Cost: ${price * formData.quantity}</p>  
+
+      </div>
+      <form className="register-class-form" onSubmit={handleSubmit}>
         <label>Quantity</label>
         <input
           name="quantity"
@@ -121,7 +131,12 @@ const RegisterClassForm = () => {
           onChange={handleInputChange}
         />
         <label>Email</label>
-        <input required name="email" type="email" onChange={handleInputChange} />
+        <input
+          required
+          name="email"
+          type="email"
+          onChange={handleInputChange}
+        />
         <input type="submit" />
       </form>
     </div>

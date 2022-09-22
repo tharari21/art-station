@@ -20,9 +20,12 @@ const ClassCard = ({ classObj }) => {
           {classObj.painting.name.slice(0, 1).toUpperCase() +
             classObj.painting.name.slice(1)}
         </h3>
-        <p>{convertedDate}</p>
-        <small>${classObj.price}</small>
+          <div className="card__date">
+            <p>{convertedDate}</p>
+            <p>Seats available: {classObj.seats_available}</p>
+          </div>
       </div>
+        <p className="card__price">${classObj.price}</p>
     </div>
   );
 };

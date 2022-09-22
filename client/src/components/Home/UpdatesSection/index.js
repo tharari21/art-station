@@ -9,7 +9,6 @@ const UpdatesSection = () => {
       const req = await fetch('http://localhost:3000/updates/latest')
       const res = await req.json()
       if (req.ok) {
-        console.log('success', res)
         setUpdates(res)
       }
       else {

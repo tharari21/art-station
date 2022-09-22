@@ -10,8 +10,18 @@ class PaintingClassesController < ApplicationController
         end
     end
     def upcoming
-        upcoming_classes = PaintingClass.where('date > ?', Date.current)
+        
+        upcoming_classes = PaintingClass.includes(:painting_class_registrations).where('date > ?', Date.current)
+        # upcoming_available_classes = upcoming_classes.all.select { |class_| PaintingClassRegistration.where('painting_class_id=?', class_.id).count < class_.max_capacity}
+        # upcoming_available_classes_with_seats_available = upcoming_classes.all.map do |class_| 
+
+        #     class_[:seats_available] =  class_.max_capacity - PaintingClassRegistration.where('painting_class_id=?', class_.id).count
+        #     class_
+        # end
+        puts "TYYTREGG"
+        puts upcoming_classes.first.painting.image
         render json: upcoming_classes
+            
     end
     def currently_occupied
         render json: {occupied_seats: PaintingClassRegistration.where('painting_class_id=?', params[:id]).count}        

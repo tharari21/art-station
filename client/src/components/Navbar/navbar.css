@@ -1,6 +1,6 @@
 nav {
     width: 100%;
-    height: 130px;
+    height: 93px;
     background-color: #FFF5E4;
     
     /* color: white; */
@@ -13,23 +13,22 @@ nav {
 }
 .navbar__menu {
     display: flex;
-    align-items: center;
     width: 700px;
     height: 100%;
-    gap: 40px;
+    gap: 20px;
     padding-left: 35px;
     
 }
 .navbar__menu--auth {
-    width: 300px;
-    padding-right: 20px;
+    width: 400px;
+    padding-right: 40px;
     justify-content: space-around;
+    align-items: flex-start;
 }
 .navbar__item {
     list-style-type: none;
     height: 50px; 
     cursor: pointer;
-    
     padding: 6px 4px;
     border-radius: 200px;
 }
@@ -96,3 +95,8 @@ nav {
     color: inherit;
 }
 
+.navbar__logout {
+    border: none;
+    background-color: transparent;
+    font-size: 1.8em;
+}

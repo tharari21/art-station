@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "./redux/user";
 import './App.css';
 import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
@@ -5,7 +8,31 @@ import Home from './pages/Home'
 import Auth from './pages/Auth/Auth';
 import Classes from './pages/Classes/Classes';
 import ClassRegister from './pages/Classes/ClassRegister';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import Calendar from './pages/Calendar';
+import ProtectedAdminRoute from "./components/utils/AuthRoute";
+
+
 function App() {
+  const user = useSelector(state=>state.user.value)
+  const dispatch = useDispatch()
+  const checkLoginStatus = async () => {
+    try {
+      const req = await fetch('http://localhost:3000/logged_in', {
+        credentials: 'include'
+      })
+      const res = await req.json()
+      if (req.ok) {
+        console.log(res)
+        dispatch(login(res));
+      }
+    } catch (e) {
+      // handle errors
+    }
+  }
+  useEffect(() => {
+    checkLoginStatus()
+  }, [])
   return (
     <div className="App">
       <Navbar />
@@ -14,8 +41,15 @@ function App() {
         <Route path="/register" element={<Auth type="register" />}></Route>
         <Route path="/login" element={<Auth type="login" />}></Route>
         <Route path="/classes" element={<Classes />}></Route>
-        <Route path="/classes/:id/register/new" element={<ClassRegister />}></Route>
-        <Route path="/admin/classes/new" element={<ClassRegister />}></Route>
+        <Route
+          path="/classes/:id/register/new"
+          element={<ClassRegister />}
+        ></Route>
+        <Route path="/calendar" element={<Calendar />}></Route>
+        <Route element={<ProtectedAdminRoute user={user} isAdminPath={true}/>}>
+          <Route path="/admin" element={<AdminDashboard />}></Route>
+          <Route path="/admin/classes/new" element={<ClassRegister />}></Route>
+        </Route>
       </Routes>
     </div>
   );
