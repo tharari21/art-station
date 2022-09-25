@@ -3,6 +3,7 @@ class PaintingClassRegistrationsController < ApplicationController
     def create
         painting_class = PaintingClass.find(params[:id])
         registration = painting_class.painting_class_registrations.create!(painting_class_registration_params)
+        registration.broadcast
         
         session = Stripe::Checkout::Session.create(
             mode: "payment",

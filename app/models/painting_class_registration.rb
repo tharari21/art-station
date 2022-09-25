@@ -4,4 +4,8 @@ class PaintingClassRegistration < ApplicationRecord
 
     validates :email, presence: true
     validates :phone_number, presence: true
+
+    def broadcast
+        ActionCable.server.broadcast("class_registrations", self)
+    end
 end

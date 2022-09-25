@@ -137,8 +137,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
-    pay (5.0.3)
-      rails (>= 6.0.0)
     pg (1.4.3)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -199,7 +197,6 @@ DEPENDENCIES
   debug
   faker
   jwt
-  pay (~> 5.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors

@@ -29,5 +29,6 @@ Rails.application.routes.draw do
 
   get '/party_requests/pending', to: 'party_requests#pending'
   post '/party_requests', to: 'party_requests#create'
+  mount ActionCable.server => "/cable"
 
 end

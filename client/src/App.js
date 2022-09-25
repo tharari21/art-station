@@ -43,18 +43,18 @@ function App() {
         <Route path="/register" element={<Auth type="register" />}></Route>
         <Route path="/login" element={<Auth type="login" />}></Route>
         <Route path="/classes" element={<Classes />}></Route>
-        <Route path="/parties" element={<Parties />}></Route>
+        <Route path="/parties" element={<Parties  />}></Route>
         <Route
           path="/classes/:id/register/new"
           element={<ClassRegister />}
         ></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
-        <Route element={<ProtectedAdminRoute user={user} isAdminPath={true}/>}>
+        <Route element={<ProtectedAdminRoute user={user} isAdminPath={true} />}>
           <Route path="/admin" element={<AdminDashboard />}></Route>
           <Route path="/admin/classes/new" element={<ClassRegister />}></Route>
         </Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
