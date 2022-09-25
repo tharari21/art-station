@@ -1,4 +1,4 @@
-import {NavLink} from 'react-router-dom'
+import { NavLink, useNavigate } from "react-router-dom";
 import Dropdown from './Dropdown';
 import { useSelector, useDispatch } from "react-redux";
 import {login} from '../../redux/user'
@@ -7,6 +7,7 @@ import "./navbar.css"
 const Navbar = () => {
   const user = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleLogout = async () => {
     const req = await fetch('http://localhost:3000/logout', {
       method: "DELETE",
@@ -14,6 +15,7 @@ const Navbar = () => {
     })
     if (req.ok) {
       dispatch(login(null))
+      navigate("/", {replace:true})
     }
   }
 
@@ -25,7 +27,7 @@ const Navbar = () => {
             <li className="navbar__item">Home</li>
           </NavLink>
           <NavLink className="navbar__link navbar__item--hoverable" to="/store">
-            <li className="navbar__item">
+             <li className="navbar__item">
               Supplies <AiFillCaretDown size=".5em" style={{ float: "left" }} />
             </li>
             {/* <Dropdown /> */}
@@ -54,7 +56,7 @@ const Navbar = () => {
               >
                 <li className="navbar__item navbar__item--auth">Logout</li>
               </button>
-              <NavLink className="navbar__link" to="/login">
+              <NavLink className="navbar__link" to="/profile">
                 <li className="navbar__item navbar__item--auth">
                   {user.username &&
                     user.username.slice(0, 1).toUpperCase() +

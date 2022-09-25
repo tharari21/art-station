@@ -5,6 +5,8 @@
   "dependencies": {
     "@rails/actiontext": "^7.0.4",
     "@reduxjs/toolkit": "^1.8.5",
+    "@stripe/react-stripe-js": "^1.11.0",
+    "@stripe/stripe-js": "^1.37.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

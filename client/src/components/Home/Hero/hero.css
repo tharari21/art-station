@@ -1,69 +1,49 @@
 .hero {
     height: 90vh;
-    /* background-image: url(../../assets/white-paper-texture.jpg) */
-    /* background-color: bisque; */
-    /* background-image: url(../../assets/paintbrushes.jpg);
-    background-size: cover; */
-    background-color: #FFF5E4;
-    /* background-color: #00A5E3; */
-    /* Not working - figure out how to add font to one specific area */
-    font-family: 'Dancing Script', cursive;
-}
-.hero > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 90%;
-    width: 70%;
+    background-color:rgb(230, 229, 239);
 }
 .hero__info {
-    width: 95%;
-    height: 90%;
-    padding: 32px;
-    margin-left: 2em;
-    margin-top: 2em;
+    padding: 2em 5em;
 }
 .hero__title {
-    font-size: 7em;
-    font-weight: bold;
+    font-size: 8em;
+    margin-bottom: .4em;
 }
-
 .hero__subtitle {
-    padding: 1em;
+    padding-left: .8em;
     font-size: 3em;
-    width: 600px;
 }
-.hero__description {
-    margin-left: 3em;
-    margin-bottom: 1em;
-    font-size: 1.8em;
-    width: 50%;
+.hero__cards {
+    display: grid;
+    gap: 3em;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    margin: 5em 4em;
 }
-.hero__buttons {
-   margin-left: 8em;
-    margin-top: 2em;
-}
-.hero__button {
-    width: 200px;
-    height: 48px;
-    border: none;
-    background-color: #850E35;
-    color: white;
-    font-size: 1.4em;
-    border-radius: 4px;
-    margin: 0 14px;
-    cursor:pointer;
-    transition: .4s;
-}
-.hero__button:hover {
-    opacity: 0.7;
-}
-.button__link {
-    color: inherit;
+.link {
     text-decoration: none;
-    
+    color: inherit;
 }
-.button__left {
+.card__link {
+    font-size: 1.6em;
+    width: 300px;
+    height: 300px;
+    padding: 16px 24px;
+    transition: .3s;
+    cursor: pointer;
 }
-.button__left {
+.card__link:hover {
+    transform: scale(1.14);
+}
+.classes {
+    background-color: rgb(236, 118, 118);
+}
+.parties {
+    background-color: rgb(117, 117, 245);
+}
+.framing {
+    background-color: rgb(117, 245, 190);
+}
+.supplies {
+    background-color: rgb(245, 117, 209);
 }

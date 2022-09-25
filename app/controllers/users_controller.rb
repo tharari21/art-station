@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     def create
         user = User.create!(user_params)
-        user.admin=false
+        user.admin = false
         token = encode_token({user_id: user.id})
         cookies.signed[:jwt] = {
             value: token,

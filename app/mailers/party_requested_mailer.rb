@@ -1,0 +1,2 @@
+class PartyRequestedMailer < ApplicationMailer
+end

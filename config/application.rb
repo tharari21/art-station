@@ -8,7 +8,7 @@ require "active_record/railtie"
 require "active_storage/engine"
 require 'action_text/engine'
 require "action_controller/railtie"
-# require "action_mailer/railtie"
+require "action_mailer/railtie"
 # require "action_mailbox/engine"
 # require "action_text/engine"
 require "action_view/railtie"
@@ -37,6 +37,19 @@ module ArtStation
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
+
+    config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
+    config.action_mailer.delivery_method = :smtp
+    
+    config.action_mailer.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :user_name => Rails.application.credentials.dig(:gmail, :username),
+    :password =>  Rails.application.credentials.dig(:gmail, :password),
+    :authentication => 'plain',
+    :enable_starttls_auto => true
+    }
+
 
   end
 end

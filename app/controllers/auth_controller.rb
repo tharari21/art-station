@@ -11,7 +11,7 @@ class AuthController < ApplicationController
             render json: {id: user.id, username: user.username, email: user.email, admin: user.admin }, status: :created
             
         else
-            render json: {message: "Invalid username or password"}
+            render json: {errors: ["Invalid username or password"]}
         end
     end
     def show

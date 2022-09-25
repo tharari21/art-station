@@ -4,6 +4,6 @@ class PaintingClass < ApplicationRecord
     has_many :users, through: :painting_class_registrations
 
     def seats_available
-        self.max_capacity - self.painting_class_registrations.count
+        self.max_capacity - self.painting_class_registrations.sum(:number_of_students)
     end
 end

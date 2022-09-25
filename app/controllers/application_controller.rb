@@ -18,6 +18,7 @@ class ApplicationController < ActionController::API
     # end
     def decoded_token
         jwt = cookies.signed[:jwt]
+        puts jwt
         begin
             JWT.decode(jwt, SECRET_KEY)
         rescue JWT::DecodeError
@@ -29,30 +30,28 @@ class ApplicationController < ActionController::API
         if payload
             user_id = payload[0]['user_id']
             @user = User.find(user_id)
-        
         end
-        
     end
     def logged_in?
         !!get_current_user
     end
     def authorized
-        render json: {message: "Please log in"}, status: :unauthorized unless logged_in?
+        render json: {errors: ["Please log in"]}, status: :unauthorized unless logged_in?
     end
     
     private
     
     def render_record_invalid(e)
-        return render json: {message: e.record.errors.full_messages}, status: :unprocessable_entity
+        return render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
     end
     def render_record_not_found(e)
         puts "record not found"
-        return render json: {message: "#{e.model} not found"}, status: :not_found
+        return render json: {errors: ["#{e.model} not found"]}, status: :not_found
     end
     def render_invalid_token(e)
-        render json: {message: "Invalid token"}, status: :unauthorized
+        render json: {errors: ["Invalid token"]}, status: :unauthorized
     end
     def render_expired_token
-        render json: {message: "Token expired"}, status: :unauthorized
+        render json: {errors: ["Token expired"]}, status: :unauthorized
     end
 end

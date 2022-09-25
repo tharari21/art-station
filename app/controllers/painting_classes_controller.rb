@@ -1,12 +1,19 @@
+include Rails.application.routes.url_helpers
 class PaintingClassesController < ApplicationController
-    def index            
+    before_action :authorized, only: [:create]
+    def index          
         render json: PaintingClass.all
     end
     def create
         if @user.admin
-            PaintingClass.create!(painting_class_params)
+            painting_class = PaintingClass.create!(painting_class_params)
+            # stripe_product = Stripe::Product.create({name: "#{painting_class.painting.name} #{painting_class.date}", images: [url_for(painting_class.painting.image)]})
+            # puts stripe_product
+            # Stripe::Price.create({product: stripe_product.id, unit_amount: 3000, currency: 'usd'},)
+            
+            render json: painting_class, status: :created
         else
-            render json: {message: "You must be an admin to create a class"}, status: :unauthorized
+            render json: {errors: ["You must be an admin to create a class"]}, status: :unauthorized
         end
     end
     def upcoming
@@ -18,16 +25,16 @@ class PaintingClassesController < ApplicationController
         #     class_[:seats_available] =  class_.max_capacity - PaintingClassRegistration.where('painting_class_id=?', class_.id).count
         #     class_
         # end
-        puts "TYYTREGG"
-        puts upcoming_classes.first.painting.image
         render json: upcoming_classes
             
     end
-    def currently_occupied
-        render json: {occupied_seats: PaintingClassRegistration.where('painting_class_id=?', params[:id]).count}        
+    
+    def registered
+        painting_class = PaintingClass.find(params[:id])
+        render json: painting_class.painting_class_registrations
     end
     private
     def painting_class_params
-        params.permit(:date, :painting, :max_capacity, :price)
+        params.permit(:date, :painting_id, :max_capacity, :price)
     end
 end

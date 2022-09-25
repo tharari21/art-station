@@ -1,14 +1,24 @@
-.admin-dashboard {
-    /* display: grid; */
-    
-    margin: 5em;
-}
+
 .party-request-container {
+    margin: 5em;
     border: 2px solid black;
     width: 600px;
     height: 600px;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0,0,0,.6);
+    overflow-y: scroll;
 
-
+}
+.party-request-card {
+    padding: 3em 2em;
+    height: 200px;
+    cursor: pointer;
+    transition: 0.8s;
+}
+.party-request-card:hover {
+    background-color: rgba(241, 80, 80, 0.7);
+    opacity: 0.8;
+}
+.party-request-heading {
+    padding: 15px 24px;
 }

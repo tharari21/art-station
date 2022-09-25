@@ -10,32 +10,24 @@ const Hero = () => {
           <h3 className="hero__subtitle">
             Brooklyn's Paint, Party, and Art Supply Place
           </h3>
-          {/* <p className="hero__description">
-            Art Station is Brooklyn's #1 Local Art Supply Store!
-          </p> */}
-          {/* <p className="hero__description">
-            We offer every art related family activity you could want in one
-            place.
-          </p>
-
-          <p className="hero__description">
-            Not only do we have two floors of art supplies, we also have
-            in-house custom framing, a private event space for children's
-            parties and adult paint nights, and art classes every week! Visit us
-            today!
-          </p> */}
-          <div className="hero__buttons">
-            <NavLink className="button__link button__left" to="/classes">
-            <button className="hero__button">
-                Book a Class
-            </button>
+          <div className="hero__cards">
+            <NavLink className="link" to="/classes">
+              <div className="card__link classes">
+                <h2>Classes</h2>
+              </div>
             </NavLink>
-            <NavLink className="button__link button__right" to="/contact">
-              <button className="hero__button">
-                  Contact Us!
-              </button>
-            </NavLink>
+              <div className="card__link parties">
+                <h2>Parties / School Trips</h2>
+              </div>
+              <div className="card__link framing">
+                <h2>Framing</h2>
+              </div>
+              <div className="card__link supplies">
+                <h2>Supplies</h2>
+              </div>
           </div>
+
+          
         </div>
       </div>
     </section>

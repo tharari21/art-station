@@ -2,8 +2,19 @@ class PartyRequestsController < ApplicationController
     def index
         render json: PartyRequest.all
     end
-    def upcoming
-        upcoming = PartyRequest.where('date > ?', Date.current)
-        render json: upcoming
+    def create
+        party_request = PartyRequest.create!(party_request_params)
+        party_request.update(pending: true)
+
+        render json: party_request, status: :created
+        
+    end
+    def pending
+        pending = PartyRequest.where('date > ? AND pending=true', DateTime.current)
+        render json: pending
+    end
+    private
+    def party_request_params
+        params.permit(:date, :name, :email, :phone_number)
     end
 end

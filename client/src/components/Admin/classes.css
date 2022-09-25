@@ -1,0 +1,37 @@
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+.admin-dashboard-header {
+    
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+.classes-container {
+    border: 2px solid black;
+    margin: 5em;
+    width: 600px;
+    height: 600px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,.7);
+    overflow-y: scroll;
+}
+.classes-heading {
+    padding: 15px 24px;
+}
+.class-card {
+    height: 200px;
+    padding: 3em 2em;
+    cursor: pointer;
+    transition: .8s;
+}
+.class-card:hover {
+    background-color: rgba(241, 80, 80, 0.7);
+    opacity: 0.8;
+}
+.class-card__image {
+    width: 100px;
+    height: 100px;
+}

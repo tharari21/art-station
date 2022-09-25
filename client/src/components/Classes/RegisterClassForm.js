@@ -1,85 +1,76 @@
 import {useLocation} from 'react-router-dom'
-import { useRef, useState,useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import {loadStripe} from '@stripe/stripe-js'
+import { useState,useEffect } from 'react';
 import { convertDate } from './util';
+
+const stripePromise = loadStripe(
+  "pk_test_51LlFBUCvxdyaKhHoHl5h6LfinnLpjZNvYsRlKbQtGTwK9nU3qXQLKbhXtAOSHKJWQjoyeChgJ7NB40pClUMqQPIh00lvBR3gzh"
+);
 const RegisterClassForm = () => {
+  const user = useSelector(state => state.user.value)
   const [formData, setFormData] = useState({
-    quantity: 1,
-    students: []
+    number_of_students: 1, 
+    email: ""
   })
   const { state } = useLocation();
-  const { id, date, painting, price, max_capacity } = state; // Read values passed on state
-  const [currentlyAvailable, setCurrentlyAvailable] = useState(null);
-  const getCurrentlyAvailable = async () => {
-    const req = await fetch(`http://localhost:3000/classes/${id}/currently_occupied`)
-    const res = await req.json()
-    console.log(res)
-    setCurrentlyAvailable(max_capacity - res.occupied_seats)
-  }
+  const { id, date, painting, price, max_capacity, seats_available } = state; // Read values passed on state
+
   
+ 
   useEffect(() => {
-    getCurrentlyAvailable();
-  }, [])
+    if (user) {
+      formData.email = user.email
+    }
+  }, [user])
   const { weekday, month, day, year, time } = convertDate(date);
     
-    const handleInputChange = (e) => {
-      if (e.target.name.includes("age") || e.target.name.includes("name")) {
-        const index = parseInt(e.target.name.slice(e.target.name.indexOf("-")+1))
-        const attr = e.target.name.slice(0,e.target.name.indexOf("-"))
-        console.log('ind', index)
-        
-        if (index >= formData.students.length) {
-          setFormData({
-            ...formData,
-            students: [
-              ...formData.students,
-              { [attr]: (attr === 'age' ? parseInt(e.target.value) : e.target.value) },
-            ],
-          });
-
-        } else {
-          setFormData({...formData, students: formData.students.map((student, i) => {
-            if (i === index) {
-              return {
-                ...student,
-                [attr]:
-                  attr === "age" ? parseInt(e.target.value) : e.target.value,
-              };
-            } else {
-              return student
-            }
-          })})
-        }
-      } 
-      else if (e.target.type === "number") {
-        setFormData(() => ({
-          ...formData,
-          [e.target.name]: parseInt(e.target.value),
-        }));
-      }
-       else {
-        setFormData(() => ({ ...formData, [e.target.name]: e.target.value }));
-      }
+  console.log(formData)
+  const handleInputChange = (e) => {
+    if (e.target.type === "number") {
+      setFormData(() => ({
+        ...formData,
+        [e.target.name]: parseInt(e.target.value),
+      }));
     }
-    console.log(formData)
-    const handleSubmit = async (e) => {
-      e.preventDefault()
+      else {
+      setFormData(() => ({ ...formData, [e.target.name]: e.target.value }));
+    }
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const stripe = await stripePromise
+    // Here we want to create a checkout session!
+    try {
       const req = await fetch(`http://localhost:3000/classes/${id}/register`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(formData)
       })
       const res = await req.json()
+      if (req.ok) {
 
-      console.log(res)
-      
+        const result = await stripe.redirectToCheckout({
+          sessionId: res.session.id
+        })
+      } else {
+
+      }
+
+    } catch (e) {
+
     }
+    
+    
+    
+  }
   return (
     <div className="form-container">
-      <div className="class-form__details">
-      </div>
-      <div >
+      <div className="class-form__details"></div>
+      <div>
         <img
           className="class-form__image"
           src={painting.image}
@@ -91,38 +82,28 @@ const RegisterClassForm = () => {
         </h2>
         <p>Date: {`${weekday}, ${month}/${day}/${year}`}</p>
         <p>Time: {time}</p>
-        <p>Total Cost: ${price * formData.quantity}</p>  
-
+        <p>Total Cost: ${price * formData.quantity}</p>
       </div>
       <form className="register-class-form" onSubmit={handleSubmit}>
-        <label>Quantity</label>
+        <label>Number of Students</label>
         <input
-          name="quantity"
+          name="number_of_students"
           type="number"
           value={formData.quantity}
           required
           min={1}
-          max={currentlyAvailable}
+          max={seats_available}
           onChange={handleInputChange}
         />
 
-        {[...Array(parseInt(formData.quantity)).keys()].map((n) => {
-          console.log(n);
-          return (
-            <div key={n}>
-              <label>Student {n + 1} Name</label>
-              <input name={`name-${n}`} required onChange={handleInputChange} />
-              <label>Student {n + 1} Age (must be 6 years or older)</label>
-              <input
-                name={`age-${n}`}
-                required
-                type="number"
-                min={6}
-                onChange={handleInputChange}
-              />
-            </div>
-          );
-        })}
+        <label>Reservation Name</label>
+        <input name="name" required onChange={handleInputChange} />
+        <label>Student/s Are 6 Years Old or Older?</label>
+        <input
+          name="age-confirmation"
+          required
+          type="checkbox"
+        />
         <label>Phone Number</label>
         <input
           name="phone_number"
@@ -130,9 +111,12 @@ const RegisterClassForm = () => {
           required
           onChange={handleInputChange}
         />
+
         <label>Email</label>
         <input
           required
+          value={formData.email}
+          disabled={!!user}
           name="email"
           type="email"
           onChange={handleInputChange}

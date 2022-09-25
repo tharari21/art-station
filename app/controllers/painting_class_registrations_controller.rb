@@ -1,23 +1,24 @@
 class PaintingClassRegistrationsController < ApplicationController
 
     def create
-        students = params[:students].map do |student|
-            new_student = {}
-            new_student[:painting_class_id] = params[:id]
-            new_student[:name] = student[:name]
-            new_student[:age] = student[:age]
-            new_student[:email] = params[:email]
-            new_student[:phone_number] = params[:phone_number]
-            new_student
-        end
-        puts "students!!"
-        p students
-        registration = PaintingClassRegistration.create!(students)
-        render json: registration, status: :created
+        painting_class = PaintingClass.find(params[:id])
+        registration = painting_class.painting_class_registrations.create!(painting_class_registration_params)
+        
+        session = Stripe::Checkout::Session.create(
+            mode: "payment",
+            payment_method_types: ['card'],
+            success_url: "http://localhost:4000?success=true",
+            cancel_url: "http://localhost:4000?cancelled=true",
+            # can use price data if you're creating on the fly
+            line_items: [{quantity: params[:number_of_students],price: "price_1LlIfsCvxdyaKhHoL71UZoEk"}],
+            customer_email: get_current_user&.email || params[:email],
+        )
+        render json: {session: session, registration: registration}, status: :created
+        
 
     end
     private
     def painting_class_registration_params
-        # params.permit(:user_id, :name, :age,  :students)
+        params.permit(:name, :email, :phone_number, :number_of_students)
     end
 end
