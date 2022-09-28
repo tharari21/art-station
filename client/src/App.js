@@ -20,12 +20,13 @@ function App() {
   const dispatch = useDispatch()
   const checkLoginStatus = async () => {
     try {
+      console.log('checking logged in status')
       const req = await fetch('http://localhost:3000/logged_in', {
         credentials: 'include'
       })
       const res = await req.json()
       if (req.ok) {
-        console.log(res)
+        console.log('res',res)
         dispatch(login(res));
       }
     } catch (e) {
@@ -38,12 +39,13 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      
       <Routes>
         <Route index element={<Home />}></Route>
         <Route path="/register" element={<Auth type="register" />}></Route>
         <Route path="/login" element={<Auth type="login" />}></Route>
         <Route path="/classes" element={<Classes />}></Route>
-        <Route path="/parties" element={<Parties  />}></Route>
+        <Route path="/parties" element={<Parties />}></Route>
         <Route
           path="/classes/:id/register/new"
           element={<ClassRegister />}

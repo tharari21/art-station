@@ -1,5 +1,6 @@
 .footer {
     height: 400px;
+    margin-bottom: 0;
     background-color: aliceblue;
     display: flex;
     justify-content: center;

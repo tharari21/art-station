@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import Hero from "../components/Home/Hero"
 import UpdatesSection from "../components/Home/UpdatesSection"
+import {motion} from 'framer-motion'
 const Home = () => {
   const [message, setMessage] = useState("");
 
@@ -22,14 +23,21 @@ const Home = () => {
 
   return (
     <main>
-      {message && (
-        <div >{message}</div>
-      )}
-      
+      {message && <div>{message}</div>}
+      <motion.div
+        initial="hidden" whileInView="visible" viewport={{ once: true }}
+      >
         <Hero />
-        <UpdatesSection />
+      </motion.div>
+      <motion.div
+        initial="hidden" whileInView="visible" viewport={{ once: true }}
+      >
+
+      <UpdatesSection />
+      </motion.div>
+      {/* <ClassDetails /> */}
     </main>
-  )
+  );
 }
 
 export default Home

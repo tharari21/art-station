@@ -50,12 +50,6 @@ nav {
 .navbar__link:nth-child(5):hover {
     background-image: url('../../assets/Purple.png');
 }
-.navbar__link:nth-child(6):hover {
-    background-color:#2fe775;
-}
-.navbar__link:nth-child(7):hover {
-    background-color:#2fe775;
-}
 .navbar__link {
     font-size: 1.8em;
     color: inherit;
@@ -64,8 +58,7 @@ nav {
     padding: 6px 6px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-   
+    background-position: center;   
 }
 
 .navbar__item--hoverable {

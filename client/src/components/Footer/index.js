@@ -5,14 +5,16 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-item">
           <ul className="footer-list">
-            <li> Business Hours:</li>
-            <li>Sunday-Friday 9AM-7PM</li>
-            <li>Saturday Closed</li>
+            <li>
+              Business Hours: <br /> Sunday-Friday 9AM-7PM <br /> Saturday
+              Closed
+            </li>
+            <li>Contact: 718-645-4545 </li>
+            <li></li>
           </ul>
         </div>
         <div className="footer-item">
           <ul className="footer-list">
-            <li>Contact Us</li>
             <li>Terms & Conditions</li>
             <li>Three</li>
             <li>Four</li>

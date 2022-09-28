@@ -35,3 +35,8 @@
     width: 100px;
     height: 100px;
 }
+.reservation-card {
+    height: 100px;
+    padding-left: 2em;
+    margin: 1em 0;
+}

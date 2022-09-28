@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {loadStripe} from '@stripe/stripe-js'
 import { useState,useEffect } from 'react';
 import { convertDate } from './util';
+import { ActionCableContext } from "../..";
 
 const stripePromise = loadStripe(
   "pk_test_51LlFBUCvxdyaKhHoHl5h6LfinnLpjZNvYsRlKbQtGTwK9nU3qXQLKbhXtAOSHKJWQjoyeChgJ7NB40pClUMqQPIh00lvBR3gzh"
@@ -11,7 +12,9 @@ const RegisterClassForm = () => {
   const user = useSelector(state => state.user.value)
   const [formData, setFormData] = useState({
     number_of_students: 1, 
-    email: ""
+    name: "",
+    email: "",
+    phone_number: "",
   })
   const { state } = useLocation();
   const { id, date, painting, price, max_capacity, seats_available } = state; // Read values passed on state
@@ -20,12 +23,11 @@ const RegisterClassForm = () => {
  
   useEffect(() => {
     if (user) {
-      formData.email = user.email
+      setFormData({...formData, email: user.email})
     }
   }, [user])
   const { weekday, month, day, year, time } = convertDate(date);
     
-  console.log(formData)
   const handleInputChange = (e) => {
     if (e.target.type === "number") {
       setFormData(() => ({
@@ -37,7 +39,7 @@ const RegisterClassForm = () => {
       setFormData(() => ({ ...formData, [e.target.name]: e.target.value }));
     }
   }
-  const handleSubmit = async (e) => {
+  const createCheckoutSession = async (e) => {
     e.preventDefault()
     const stripe = await stripePromise
     // Here we want to create a checkout session!
@@ -56,6 +58,9 @@ const RegisterClassForm = () => {
         const result = await stripe.redirectToCheckout({
           sessionId: res.session.id
         })
+        if (result.error) {
+          alert(result.error.message)
+        }
       } else {
 
       }
@@ -82,14 +87,14 @@ const RegisterClassForm = () => {
         </h2>
         <p>Date: {`${weekday}, ${month}/${day}/${year}`}</p>
         <p>Time: {time}</p>
-        <p>Total Cost: ${price * formData.quantity}</p>
+        <p>Total Cost: ${price * formData.number_of_students}</p>
       </div>
-      <form className="register-class-form" onSubmit={handleSubmit}>
+      <form className="register-class-form" onSubmit={createCheckoutSession}>
         <label>Number of Students</label>
         <input
           name="number_of_students"
           type="number"
-          value={formData.quantity}
+          value={formData.number_of_students}
           required
           min={1}
           max={seats_available}
@@ -97,17 +102,19 @@ const RegisterClassForm = () => {
         />
 
         <label>Reservation Name</label>
-        <input name="name" required onChange={handleInputChange} />
-        <label>Student/s Are 6 Years Old or Older?</label>
         <input
-          name="age-confirmation"
+          name="name"
+          value={formData.name}
           required
-          type="checkbox"
+          onChange={handleInputChange}
         />
+        <label>Student/s Are 6 Years Old or Older?</label>
+        <input name="age-confirmation" required type="checkbox" />
         <label>Phone Number</label>
         <input
           name="phone_number"
           type="number"
+          value={formData.phone_number}
           required
           onChange={handleInputChange}
         />

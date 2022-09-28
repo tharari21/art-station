@@ -1,12 +1,52 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import PartyRequestContainer from '../../components/Admin/PartyRequestContainer'
 import ClassesContainer from '../../components/Admin/ClassesContainer'
 import CreateClassForm from '../../components/Admin/CreateClassForm';
 import CreatePaintingForm from '../../components/Admin/CreatePaintingForm';
 
 const AdminDashboard = () => {
-  const addClass = () => {
-    
+  const [paintings, setPaintings] = useState(null);
+  const [classes, setClasses] = useState(null);
+  const [classErrors, setClassErrors] = useState(null);
+  const [paintingErrors, setPaintingErrors] = useState(null);
+  
+  useEffect(() => {
+    const getPaintings = async () => {
+      try {
+        const req = await fetch("http://localhost:3000/paintings");
+        const res = await req.json();
+        if (req.ok) {
+          console.log("paintings", res);
+          setPaintings(res);
+        } else {
+          setPaintingErrors(res);
+        }
+      } catch (e) {
+        setPaintingErrors(e.message);
+      }
+    };
+    const getUpcomingClasses = async () => {
+      try {
+        const req = await fetch("http://localhost:3000/classes/upcoming");
+        const res = await req.json();
+        if (req.ok) {
+          console.log(res);
+          setClasses(res);
+        } else {
+          setClassErrors(res.errors);
+        }
+      } catch (e) {
+        setClassErrors(e.message);
+      }
+    };
+    getUpcomingClasses();
+    getPaintings();
+  }, []);
+  const addPainting = (newPainting) => {
+    setPaintings([...paintings, newPainting]);
+  } 
+  const addClass = (newClass) => {
+    setClasses([...classes, newClass])
   }
   return (
     <div>
@@ -15,9 +55,10 @@ const AdminDashboard = () => {
       </div>
       <div className="admin-dashboard">
         <PartyRequestContainer />
-        <ClassesContainer />
-        <CreateClassForm />
-        <CreatePaintingForm />
+        <ClassesContainer classes={classes} />
+        {/* <button >Create {displayForm.slice(0,1).toLowerCase() + displayForm.slice(1)}</button> */}
+        <CreateClassForm paintings={paintings} addClass={addClass} />        
+        <CreatePaintingForm addPainting={addPainting} />
       </div>
     </div>
   );

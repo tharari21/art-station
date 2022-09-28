@@ -1,12 +1,15 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { convertDate } from "../Classes/util";
+import RegisteredForClassCard from './RegisteredForClassCard';
 const ClassCard = ({ class_ }) => {
   const {weekday, month, day, year, time} = convertDate(class_.date)
-  const [registered, setRegistered] = useState(null)
+  const [registered, setRegistered] = useState([])
   const [errors, setErrors] = useState(null)
   const [isOpened, setIsOpened] = useState(false)
+
+  
   const displayRegistered = async () => {
-    if (!isOpened && !registered)  {
+    if (!isOpened && registered.length === 0)  {
         try {
             const req = await fetch(`http://localhost:3000/classes/${class_.id}/registered`)
             const res = await req.json()
@@ -42,10 +45,11 @@ const ClassCard = ({ class_ }) => {
       </div>
       {isOpened && (
         <ul className="registered">
-          {registered?.map((student) => (
-            <li className="registered__student" key={student.id}>
-              {student.name}
-            </li>
+          {registered?.map((reservation) => (
+            <RegisteredForClassCard
+              key={reservation.id}
+              reservation={reservation}
+            />
           ))}
         </ul>
       )}

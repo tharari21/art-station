@@ -30,7 +30,7 @@ const AuthForm = ({type}) => {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        "407010366509-e3b2ndcv8ippr5g2lje0jhe0fcpf05o0.apps.googleusercontent.com",
+        process.env.GOOGLE_CLIENT_ID,
       callback: responseGoogle,
     });
     google.accounts.id.renderButton(
@@ -47,6 +47,7 @@ const AuthForm = ({type}) => {
   // google login / register handling
   const responseGoogle = (response) => {
     // Callback when user logs in with google
+    console.log(response)
     const userObject = jwt_decode(response.credential);
     console.log(userObject)
     loginOrRegister({email: userObject.email, })
@@ -66,10 +67,10 @@ const AuthForm = ({type}) => {
           },
           body: JSON.stringify(payload),
         });
-    const res = await req.json()
-    if (req.ok) {
+      const res = await req.json()
+      if (req.ok) {
         // redirect to home screen
-        
+        // console.log(res)
         dispatch(login(res));
         setIsLoggedIn(() => true)
     } else {
@@ -91,16 +92,16 @@ const AuthForm = ({type}) => {
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
-          name="username"
-          className="auth-form__form-control"
-          placeholder="Username"
+          name="email"
+          type="email"
+          placeholder="Email"
         />
         {type === "register" && (
           <input
             onChange={handleChange}
-            name="email"
-            type="email"
-            placeholder="Email"
+            name="username"
+            className="auth-form__form-control"
+            placeholder="Username"
           />
         )}
         <input

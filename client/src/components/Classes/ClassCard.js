@@ -11,7 +11,8 @@ const ClassCard = ({ classObj }) => {
       navigate(`/classes/${classObj.id}/register/new`, {state: classObj});
     }
   return (
-    <div className="card" onClick={handleClick}>
+    <div className={`card${classObj.seats_available === 0 ? " sold-out" : ""}`} onClick={handleClick}>
+      {classObj.seats_available === 0 && <div className="sold-out-label">SOLD OUT</div>}
       <div
         className="card__image"
         style={{ backgroundImage: `url(${classObj.painting.image})` }}

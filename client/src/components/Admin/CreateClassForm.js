@@ -1,34 +1,13 @@
 import { useEffect, useState } from "react";
-const CreateClassForm = ({addClass}) => {
-  const [paintings, setPaintings] = useState(null)
-  const [errors, setErrors] = useState(null)
+const CreateClassForm = ({addClass, paintings}) => {
   const [formData, setFormData] = useState({})
-  useEffect(() => {
-    const getPaintings = async () => {
-      try {
-        const req = await fetch('http://localhost:3000/paintings')
-        const res = await req.json()
-        if (req.ok) {
-          console.log('paintings',res)
-          setPaintings(res)
-        } else {
-          setErrors(res)
-        }
-      } catch (e) {
-        setErrors(e.message)
-      }
-    }
-    getPaintings()
-
-  }, [])
-
+  
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value})
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(formData)
       const req = await fetch("http://localhost:3000/classes", {
         method: "POST",
         credentials: 'include',
@@ -39,7 +18,7 @@ const CreateClassForm = ({addClass}) => {
       });
       const res = await req.json()
       if (req.ok) {
-        console.log(res)
+          addClass(res);
       }else {
         console.log(res)
         

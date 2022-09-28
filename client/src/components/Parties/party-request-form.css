@@ -1,0 +1,9 @@
+.party-request-form-container {
+    display: flex;
+    justify-content: center;
+}
+.party-request-form {
+    width: 45%;
+    margin: 4em 0;
+    padding: 2em;
+}

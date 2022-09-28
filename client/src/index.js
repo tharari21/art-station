@@ -6,7 +6,6 @@ import App from './App';
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import actionCable from "actioncable";
-
 const CableApp = {};
 CableApp.cable = actionCable.createConsumer("ws://localhost:3000/cable"); // change to whatever port your server uses
 export const ActionCableContext = createContext();
@@ -14,11 +13,11 @@ export const ActionCableContext = createContext();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  <Provider store={store}>
-    <ActionCableContext.Provider value={CableApp.cable}>
-      <App  />
-    </ActionCableContext.Provider>
-  </Provider>
+    <Provider store={store}>
+      <ActionCableContext.Provider value={CableApp.cable}>
+        <App />
+      </ActionCableContext.Provider>
+    </Provider>
   </BrowserRouter>
 );
 

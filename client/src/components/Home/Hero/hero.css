@@ -31,19 +31,22 @@
     padding: 16px 24px;
     transition: .3s;
     cursor: pointer;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    border-radius: 16px;
 }
 .card__link:hover {
     transform: scale(1.14);
 }
 .classes {
-    background-color: rgb(236, 118, 118);
+    /* background-color: rgb(236, 118, 118); */
 }
 .parties {
-    background-color: rgb(117, 117, 245);
+    /* background-color: rgb(117, 117, 245); */
 }
 .framing {
-    background-color: rgb(117, 245, 190);
+    /* background-color: rgb(117, 245, 190); */
 }
 .supplies {
-    background-color: rgb(245, 117, 209);
+    /* background-color: rgb(245, 117, 209); */
 }
