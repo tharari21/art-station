@@ -5,7 +5,8 @@ class PartyRequestsController < ApplicationController
     def create
         party_request = PartyRequest.create!(party_request_params)
         party_request.update(pending: true)
-        
+        PartyRequestedMailer.with(party_request: party_request).notify_admin.deliver_later
+        PartyRequestedMailer.with(party_request: party_request).notify_user.deliver_later
         party_request.broadcast
         render json: party_request, status: :created
         

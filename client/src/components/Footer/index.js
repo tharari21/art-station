@@ -1,3 +1,5 @@
+import { AiFillInstagram, AiFillFacebook } from "react-icons/ai";
+import {FaTiktok} from 'react-icons/fa'
 import "./footer.css"
 const Footer = () => {
   return (
@@ -10,7 +12,7 @@ const Footer = () => {
               Closed
             </li>
             <li>Contact: 718-645-4545 </li>
-            <li></li>
+            <li>1303 Avenue U, Brooklyn NY</li>
           </ul>
         </div>
         <div className="footer-item">
@@ -19,6 +21,23 @@ const Footer = () => {
             <li>Three</li>
             <li>Four</li>
           </ul>
+        </div>
+      </div>
+      <div className="social-media-icons">
+        <div>
+          <a href="https://www.instagram.com/theartstationny/">
+            <AiFillInstagram />
+          </a>
+        </div>
+        <div>
+          <a href="https://www.facebook.com/TheArtStationNY/">
+            <AiFillFacebook />
+          </a>
+        </div>
+        <div>
+          <a href="https://www.tiktok.com/@artstation29/">
+            <FaTiktok />
+          </a>
         </div>
       </div>
     </footer>

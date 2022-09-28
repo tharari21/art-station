@@ -12,4 +12,9 @@ class PaintingClass < ApplicationRecord
     def full?
         seats_available == 0
     end
+    def self.upcoming_paintings
+        painting_ids = self.order(:date).uniq { |class_| class_.painting_id }.slice(0,2).pluck(:painting_id)
+        Painting.where('id in (?)', painting_ids)
+    end
+    
 end

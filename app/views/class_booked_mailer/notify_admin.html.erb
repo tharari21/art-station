@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>A new user registered for the <%= @registration.painting_class.date.strftime("%B %d, %Y @ %I:%M %p") %> class</h1>
+    <p>
+      Here are the details:
+    </p>
+    <br>
+    <p>Reservation Name: <%= @registration.name %></p>
+    <p>Reservation Email: <%= @registration.phone_number %></p>
+    <p>Reservation Phone Number: <%= @registration.phone_number %></p>
+    <p>Number of Students: <%= @registration.number_of_students %></p>
+    <p>Date: <%= @registration.painting_class.date.strftime("%B %d, %Y @ %I:%M %p") %></p>
+    
+  </body>
+</html>

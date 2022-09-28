@@ -4,6 +4,7 @@ import { login } from "./redux/user";
 import './App.css';
 import {Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Home from './pages/Home'
 import Auth from './pages/Auth/Auth';
@@ -46,6 +47,7 @@ function App() {
         <Route path="/login" element={<Auth type="login" />}></Route>
         <Route path="/classes" element={<Classes />}></Route>
         <Route path="/parties" element={<Parties />}></Route>
+        <Route path="/contact-us" element={<Contact />}></Route>
         <Route
           path="/classes/:id/register/new"
           element={<ClassRegister />}

@@ -3,7 +3,8 @@
     margin-bottom: 0;
     background-color: aliceblue;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .footer-content {
     width: 800px;
@@ -22,4 +23,12 @@
 }
 .footer-list li {
     margin: 10px 14px;
+}
+.social-media-icons {
+    display: flex;
+    gap: 1.2em;
+}
+.social-media-icons a {
+    color: inherit;
+    font-size: 2em;
 }

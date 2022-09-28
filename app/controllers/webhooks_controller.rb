@@ -51,7 +51,9 @@ class WebhooksController < ApplicationController
             #     Orders.create!(user_id: session.metadata.user_id.to_i, session_id: session.id,name: "Painting Class",amount: 1000)
             # end
             
-            ClassBookedMailer.with(registration: registration, email: session.metadata.email).class_booked.deliver_later
+            ClassBookedMailer.with(registration: registration, email: session.metadata.email).notify_user.deliver_later
+            ClassBookedMailer.with(registration: registration).notify_admin.deliver_later
+            
             
             
 
