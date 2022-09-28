@@ -8,6 +8,7 @@ class WebhooksController < ApplicationController
         event = nil
 
         begin
+            # Verify event came from stripe
             event = Stripe::Webhook.construct_event(
                 payload, sig_header, endpoint_secret
             )
@@ -28,10 +29,31 @@ class WebhooksController < ApplicationController
             # Get the receipt url
             puts "PAYMENT INTENT"
             
+            
         when 'checkout.session.completed'
             puts "CHECKOUT SESSION COMPLETE"
             # Get the customer email
-            ClassBookedMailer.class_booked(event[:data][:object][:customer_details][:email]).deliver_later
+            
+            # ClassBookedMailer.class_booked(event[:data][:object][:customer_details][:email]).deliver_later
+            session = event.data.object # does not contain line items
+            p "DATA STUFF"
+
+            painting_class = PaintingClass.find(session.metadata.class_id.to_i)
+            registration = painting_class.painting_class_registrations.create!(
+                name: session.metadata.name, 
+                email: session.metadata.email, 
+                phone_number: session.metadata.phone_number,
+                number_of_students: session.metadata.number_of_students.to_i
+            )
+            registration.broadcast
+            # perhaps store orders or customers? not sure
+            # if session.metadata.user_id
+            #     Orders.create!(user_id: session.metadata.user_id.to_i, session_id: session.id,name: "Painting Class",amount: 1000)
+            # end
+            
+            ClassBookedMailer.with(registration: registration, email: session.metadata.email).class_booked.deliver_later
+            
+            
 
         when 'payment_method.attached'
             payment_method = event.data.object # contains a Stripe::PaymentMethod

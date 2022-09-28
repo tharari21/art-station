@@ -1,6 +1,8 @@
 class AuthController < ApplicationController
     def create
-        user = User.find_by!(username: params[:username])
+        p "USER"
+        user = User.find_by!(email: params[:email])
+        p user
         if user.authenticate(params[:password])
             token = encode_token({user_id: user.id})
             cookies.signed[:jwt] = {
@@ -11,7 +13,7 @@ class AuthController < ApplicationController
             render json: {id: user.id, username: user.username, email: user.email, admin: user.admin }, status: :created
             
         else
-            render json: {errors: ["Invalid username or password"]}
+            render json: {errors: ["Invalid username or password"]}, status: :unprocessable_entity
         end
     end
     def show

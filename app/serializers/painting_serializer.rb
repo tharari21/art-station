@@ -5,7 +5,6 @@ class PaintingSerializer < ActiveModel::Serializer
   # has_one :image
 
   def image
-    puts "IMAGE"
     return url_for(object.image) if object.image.attached?
   end
 

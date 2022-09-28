@@ -5,9 +5,12 @@
   <body>
     <h1>Your booking @ The Art Station is confirmed!</h1>
     <p>
-      You have successfully booked a class,
-      your username is:.<br>
+      Hello <%= @registration.name %>, <br/>
+      Thank you for booking a class with us. Here are the details:
     </p>
+    <br>
+    <p>Number of Students: <%= @registration.number_of_students %></p>
+    <p>Date: <%= @registration.painting_class.date.strftime("%B %d, %Y @ %I:%M %p") %></p>
     <p>
       To login to the site, just follow this link: <%= @url %>.
     </p>

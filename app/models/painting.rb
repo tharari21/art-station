@@ -1,4 +1,6 @@
+
 class Painting < ApplicationRecord
+    include Rails.application.routes.url_helpers
     has_one_attached :image
     has_many :painting_classes
     
@@ -16,5 +18,8 @@ class Painting < ApplicationRecord
             errors.add(:image, "must be a JPEG or PNG")
         end
 
+    end
+    def image_url
+        return url_for(self.image)
     end
 end

@@ -5,6 +5,7 @@ class PartyRequestsController < ApplicationController
     def create
         party_request = PartyRequest.create!(party_request_params)
         party_request.update(pending: true)
+        
         party_request.broadcast
         render json: party_request, status: :created
         

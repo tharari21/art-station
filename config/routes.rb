@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'auth#destroy'
   post '/register', to: 'users#create'
   get '/logged_in', to: 'auth#show'
-
+  get '/users/:id/orders', to: 'users#orders'
+  
   post '/webhooks', to: 'webhooks#create'
 
   get '/classes', to: 'painting_classes#index'
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
   post '/classes/:id/register', to: 'painting_class_registrations#create'
 
   get '/paintings', to: 'paintings#index'
+  post '/paintings', to: 'paintings#create'
 
   get '/party_requests/pending', to: 'party_requests#pending'
   post '/party_requests', to: 'party_requests#create'

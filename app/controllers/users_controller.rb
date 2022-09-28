@@ -10,6 +10,10 @@ class UsersController < ApplicationController
         }
         render json: {id: user.id, username: user.username, email: user.email, admin: user.admin}, status: :created
     end
+    def orders
+        user = User.find(params[:id])
+        render json user.orders
+    end
     private
     def user_params
         params.permit(:username, :email, :password, :password_confirmation)
