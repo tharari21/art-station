@@ -1,7 +1,7 @@
 include Rails.application.routes.url_helpers
 class PaintingClassesController < ApplicationController
     before_action :authorized, only: [:create]
-    def index          
+    def index
         render json: PaintingClass.all
     end
     def create
@@ -15,6 +15,10 @@ class PaintingClassesController < ApplicationController
         else
             render json: {errors: ["You must be an admin to create a class"]}, status: :unauthorized
         end
+    end
+    def show
+        painting_class = PaintingClass.find(params[:id])
+        render json: painting_class
     end
     def upcoming
         upcoming_classes = PaintingClass.includes(:painting_class_registrations).where('date > ?', Date.current)

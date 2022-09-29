@@ -16,6 +16,9 @@ const AuthForm = ({type}) => {
   } : {
     username: "",
     email: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
     password: "",
     password_confirmation: "",
     
@@ -97,12 +100,32 @@ const AuthForm = ({type}) => {
           placeholder="Email"
         />
         {type === "register" && (
-          <input
-            onChange={handleChange}
-            name="username"
-            className="auth-form__form-control"
-            placeholder="Username"
-          />
+          <>
+            <input
+              onChange={handleChange}
+              name="username"
+              className="auth-form__form-control"
+              placeholder="Username"
+            />
+            <input
+              onChange={handleChange}
+              name="phone_number"
+              className="auth-form__form-control"
+              placeholder="Phone Number"
+            />
+            <input
+              onChange={handleChange}
+              name="first_name"
+              className="auth-form__form-control"
+              placeholder="First Name"
+            />
+            <input
+              onChange={handleChange}
+              name="last_name"
+              className="auth-form__form-control"
+              placeholder="Last Name"
+            />
+          </>
         )}
         <input
           onChange={handleChange}

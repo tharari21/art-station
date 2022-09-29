@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   
   # login and signup
-  get '/updates/latest', to: 'updates#latest'
+  get '/updates', to: 'updates#index'
+  post '/updates', to: 'updates#create'
 
   post '/login', to: 'auth#create'
   delete '/logout', to: 'auth#destroy'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   get '/classes', to: 'painting_classes#index'
   post '/classes', to: 'painting_classes#create'
   get '/classes/upcoming', to: 'painting_classes#upcoming'
+  get '/classes/:id', to: 'painting_classes#show'
   # here is where we should implement nested routes
   get '/classes/:id/currently_occupied', to: 'painting_classes#currently_occupied'
   get '/classes/:id/registered', to: 'painting_classes#registered'
@@ -31,6 +33,8 @@ Rails.application.routes.draw do
 
   get '/party_requests/pending', to: 'party_requests#pending'
   post '/party_requests', to: 'party_requests#create'
+  patch '/party_requests/:id/confirm', to: 'party_requests#confirm'
+  delete '/party_requests/:id', to: 'party_requests#destroy'
   mount ActionCable.server => "/cable"
 
 end

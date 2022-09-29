@@ -45,7 +45,6 @@ class ApplicationController < ActionController::API
         return render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
     end
     def render_record_not_found(e)
-        puts "record not found"
         return render json: {errors: ["#{e.model} not found"]}, status: :not_found
     end
     def render_invalid_token(e)

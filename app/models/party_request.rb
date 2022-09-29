@@ -10,4 +10,9 @@ class PartyRequest < ApplicationRecord
     def is_future?
         errors.add(:date, "must be in the future") unless self.date.future?
     end
+    def confirm
+        self.update(pending: false)
+        PartyRequestedMailer.with(party_request: party_request).notify_admin.deliver_later
+        PartyRequestedMailer.with(party_request: party_request).notify_user.deliver_later
+    end
 end

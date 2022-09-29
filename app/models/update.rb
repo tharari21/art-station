@@ -1,3 +1,3 @@
 class Update < ApplicationRecord
-    # has_rich_text :body
+    has_rich_text :body
 end

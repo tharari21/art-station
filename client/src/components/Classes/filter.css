@@ -1,0 +1,12 @@
+.filter-container {
+    margin-top: 2em;
+    margin-left: 4em;
+}
+.filter-item {
+    font-size: 1.4rem;
+    margin: 0 1em;
+    height: 2em;
+    text-align: center;
+    width: 15%;
+    border-radius: 32px;
+}

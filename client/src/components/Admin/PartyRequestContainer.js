@@ -56,7 +56,11 @@ const PartyRequestContainer = () => {
       <h1 className="party-request-heading">Party Requests</h1>
       {errors && errors}
       {partyRequests?.map((request) => (
-        <PartyRequestCard key={request.id} partyRequest={request}/>
+        <PartyRequestCard
+          key={request.id}
+          partyRequest={request}
+          setPartyRequests={setPartyRequests}
+        />
       ))}
     </div>
   );

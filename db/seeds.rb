@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-User.create!(email:'tharari93@gmail.com' , username: 'tomer', password: 'tomer', admin: true)
-User.create!(email:'tharari21@gmail.com' , username: 'user', password: 'password')
+User.create!(email:'tharari93@gmail.com' , username: 'tomer', first_name: "Tomer", last_name: "Harari", phone_number: "9179745453",password: 'tomer', admin: true)
+User.create!(email:'tharari21@gmail.com' , first_name: "Tomer", last_name: "Harari", phone_number: "9179745453",username: 'user', password: 'password')
 User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: 'password')
 User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: 'password')
 User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: 'password')
@@ -19,11 +19,11 @@ User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.uniq
 User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: 'password')
 User.create!(email:Faker::Internet.unique.email , username: Faker::Internet.unique.username, password: 'password')
 
-p1 = Painting.create!(name: "sunset")
-p2 = Painting.create!(name: "rainbow")
-p3 = Painting.create!(name: "pony")
+p1 = Painting.create!(name: "sunset", tags: ["nature", "sky"])
+p2 = Painting.create!(name: "rainbow", tags: ["nature", "sky"])
+p3 = Painting.create!(name: "pony", tags: ["animals", "nature"])
 p4 = Painting.create!(name: "docks")
-p5 = Painting.create!(name: "ducks")
+p5 = Painting.create!(name: "ducks", tags: ["animals", "nature"])
 
 p1.image.attach(io: File.open('db/seed_images/flowers.jpg'), filename: 'file.jpg')
 

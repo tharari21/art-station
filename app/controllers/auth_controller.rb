@@ -18,7 +18,7 @@ class AuthController < ApplicationController
     end
     def show
         user = get_current_user
-        render json: user, only: [:id, :username, :email ,:admin]
+        render json: user, only: [:id, :username, :email ,:admin, :first_name, :last_name, :phone_number]
     end
     def destroy
         cookies.delete :jwt

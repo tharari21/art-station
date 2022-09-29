@@ -1,4 +1,4 @@
-import {useLocation} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import {loadStripe} from '@stripe/stripe-js'
 import { useState,useEffect } from 'react';
@@ -16,14 +16,22 @@ const RegisterClassForm = () => {
     email: "",
     phone_number: "",
   })
-  const { state } = useLocation();
-  const { id, date, painting, price, max_capacity, seats_available } = state; // Read values passed on state
-
+  const { id } = useParams();
+  const [painting_class, setPaintingClass] = useState({}) 
+  const { date, painting, price, max_capacity, seats_available } = painting_class; // Read values passed on state
   
- 
+  useEffect(() => {
+    const getPaintingClass = async() => {
+      const req = await fetch(`http://localhost:3000/classes/${id}`)
+      const res = await req.json()
+      console.log(res)
+      setPaintingClass(res)
+    }
+    getPaintingClass()
+ },[])
   useEffect(() => {
     if (user) {
-      setFormData({...formData, email: user.email})
+      setFormData({...formData, email: user.email, phone_number: user.phone_number, name: `${user.first_name} ${user.last_name}`})
     }
   }, [user])
   const { weekday, month, day, year, time } = convertDate(date);
@@ -78,17 +86,19 @@ const RegisterClassForm = () => {
       <div>
         <img
           className="class-form__image"
-          src={painting.image}
+          src={painting?.image}
           width="400px"
           height="400px"
         />
         <h2>
-          {painting.name.slice(0, 1).toUpperCase() + painting.name.slice(1)}
+          {painting?.name.slice(0, 1).toUpperCase() + painting?.name.slice(1)}
         </h2>
         <p>Date: {`${weekday}, ${month}/${day}/${year}`}</p>
         <p>Time: {time}</p>
         <p>Total Cost: ${price * formData.number_of_students}</p>
       </div>
+      {seats_available > 0 && (
+
       <form className="register-class-form" onSubmit={createCheckoutSession}>
         <label>Number of Students</label>
         <input
@@ -113,7 +123,6 @@ const RegisterClassForm = () => {
         <label>Phone Number</label>
         <input
           name="phone_number"
-          type="number"
           value={formData.phone_number}
           required
           onChange={handleInputChange}
@@ -123,13 +132,14 @@ const RegisterClassForm = () => {
         <input
           required
           value={formData.email}
-          disabled={!!user}
+          // disabled={!!user}
           name="email"
           type="email"
           onChange={handleInputChange}
         />
         <input type="submit" />
       </form>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 
 include Rails.application.routes.url_helpers
 class PaintingSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image
+  attributes :id, :name, :image, :tags
   # has_one :image
 
   def image

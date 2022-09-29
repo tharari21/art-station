@@ -1,3 +1,61 @@
 .welcome-container {
     font-size: 1.8rem;
+    text-transform: uppercase;
+    /* background-color: black;
+    color: white; */
+}
+
+.welcome-hero {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 3em;
+    /* gap: 3em; */
+}
+.hero-left {
+    min-width: 580px;
+    width: 50%;
+}
+.hero-right {
+    width: 50%;
+}
+.logo-container {
+    width: 80%;
+    margin: 2em;
+    /* transform: translate(-50%); */
+    border-radius: 50%;
+    height: 600px;
+    background-image: url(../../assets/Better-Black.png);
+    background-position: center;
+    position: relative;
+}
+.logo {
+    position: absolute;
+    top:50%;
+    left:47%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+
+    /* height: 500px; */
+}
+.hero-content {
+    font-size: 5rem;
+    margin-top: 1em;
+}
+
+.visit-us-container {
+    margin-top: 2em;
+    margin-left: 2em;
+    background-color: rgb(152, 152, 238);
+    width: 12em;
+    height: .5em;
+    padding: 1em;
+}
+.visit-us {
+    color: inherit;
+    text-decoration: none;
+}
+.welcome-description {
+    padding: 2em;
+    width: 45%;
 }

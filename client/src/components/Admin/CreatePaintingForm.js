@@ -1,5 +1,7 @@
+import { useState } from "react";
 
 const CreatePaintingForm = ({ addPainting }) => {
+  const [tagInputs, setTagInputs] = useState(1)
   const createPainting = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -20,10 +22,21 @@ const CreatePaintingForm = ({ addPainting }) => {
       }
     } catch (e) {}
   };
+  const addTagInput = (e) => {
+    e.preventDefault()
+    if (e.keyCode === 13 && e.target.value.length > 0) {
+      setTagInputs(prev => prev+1)
+    }
+    
+  }
   return (
     <form onSubmit={createPainting}>
       <label>Painting Name</label>
       <input required name="name" />
+      <label>Painting Tags</label>
+      {Array.from(Array(tagInputs).keys()).map((n) => (
+          <input key={n} required name="tags" onKeyDown={addTagInput}/>
+      ))}
       <label>Painting Image</label>
       <input required name="image" type="file" accept="image/*" />
       <input type="submit" />

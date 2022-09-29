@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import ClassCard from './ClassCard';
+import Filter from './Filter';
 const ClassContainer = () => {
     const [classes, setClasses] = useState(null);
     const [errors, setErrors] = useState(null);
@@ -22,9 +23,12 @@ const ClassContainer = () => {
     }, []);
 
   return (
-    <div className="card-container">
-        {classes?.map(class_ => <ClassCard key={class_.id} classObj={class_}/>)}
-    </div>
+    <>
+      <Filter classes={classes} setClasses={setClasses}/>
+      <div className="card-container">
+          {classes?.map(class_ => <ClassCard key={class_.id} classObj={class_}/>)}
+      </div>
+    </>
   )
 }
 
