@@ -22,3 +22,14 @@
 .party-request-heading {
     padding: 15px 24px;
 }
+.edit-date-form {
+    display: flex;
+    justify-content: start;
+}
+.date-input {
+    margin: 0;
+    width: 100px;
+}
+.submit-btn {
+    
+}

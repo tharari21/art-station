@@ -1,8 +1,8 @@
-import { useContext,useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ActionCableContext } from "../..";
-import ClassCard from './ClassCard'
-import "./classes.css"
-const ClassesContainer = ({classes}) => {
+import ClassCard from "./ClassCard";
+import "./classes.css";
+const ClassesContainer = ({ classes }) => {
   const cable = useContext(ActionCableContext);
   useEffect(() => {
     const channel = cable.subscriptions.create(
@@ -12,7 +12,6 @@ const ClassesContainer = ({classes}) => {
       {
         received(data) {
           // setRegistered((prev) => [...prev, data]);
-          
         },
       }
     );
@@ -21,13 +20,14 @@ const ClassesContainer = ({classes}) => {
     };
   }, []);
 
-    
   return (
     <div className="classes-container">
-        <h1 className="classes-heading">Classes</h1>
-        {classes?.map(class_ => <ClassCard key={class_.id} class_={class_} />)}
+      <h1 className="classes-heading">Classes</h1>
+      {classes?.map(class_ => (
+        <ClassCard key={class_.id} class_={class_} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default ClassesContainer
+export default ClassesContainer;

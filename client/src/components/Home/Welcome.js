@@ -1,22 +1,18 @@
-import { useEffect, useState } from "react"
-import "./home.css"
-import {NavLink} from 'react-router-dom'
-import UpdateContainer from "./UpdateContainer"
+import { useEffect, useState } from "react";
+import "./home.css";
+import { NavLink } from "react-router-dom";
+import UpdateContainer from "./UpdateContainer";
 import Logo from "../../assets/logo.png";
 
 const Welcome = () => {
-    const [upcomingPaintings, setUpcomingPaintings] = useState()
-    useEffect(() => {
-        const getUpcomingPaintings = async () => {
-
-        }
-
-        
-    }, [])
+  const [upcomingPaintings, setUpcomingPaintings] = useState();
+  useEffect(() => {
+    const getUpcomingPaintings = async () => {};
+  }, []);
 
   return (
     <div className="welcome-container">
-      <div class="welcome-hero">
+      <div className="welcome-hero">
         <div className="hero-left">
           <div className="logo-container">
             <img className="logo" src={Logo} />
@@ -72,6 +68,6 @@ const Welcome = () => {
       </p>
     </div>
   );
-}
+};
 
-export default Welcome
+export default Welcome;

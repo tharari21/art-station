@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { convertDate } from "../Classes/util";
-import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
+import {
+  AiFillCloseCircle,
+  AiFillCheckCircle,
+  AiFillEdit,
+} from "react-icons/ai";
 const PartyRequestCard = ({ partyRequest,setPartyRequests }) => {
+  const [updating, setUpdating] = useState(false)
     const {month, day, year, weekday, time} = convertDate(partyRequest.date);
     const handlePartyConfirm = async () => {
       const input = prompt(`Are you sure you want to confirm party for ${partyRequest.name} on ${month}/${day}/${year} at ${time}? Type 'yes' to confirm`)
@@ -34,8 +40,28 @@ const PartyRequestCard = ({ partyRequest,setPartyRequests }) => {
         }
       }
     }
+    const updateDate = async (e) => {
+      
+      e.preventDefault()
+      console.log({ date: e.target.date.value });
+      const req = await fetch(`http://localhost:3000/party_requests/${partyRequest.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({date: e.target.date.value})
+      })
+      const res = await req.json()
+      if (req.ok) {
+        partyRequest.date = res.date
+        setUpdating(false)
+      }
+      else {
+        
+      }
+    }
   return (
-    <div className="party-request-card">
+    <div className="party-request-card" >
       <div className="party-request-card__content">
         <div className="person-info">
           <h3>{partyRequest.name}</h3>
@@ -45,9 +71,22 @@ const PartyRequestCard = ({ partyRequest,setPartyRequests }) => {
           <p>{partyRequest.phone_number}</p>
         </div>
         <div className="party-info">
-          <p>
-            {weekday}, {month}/{day}/{year} @ {time}
-          </p>
+          {updating ? (
+            <>
+              <form className="edit-date-form" onSubmit={updateDate}>
+                <input
+                  name="date"
+                  className="date-input"
+                  type="datetime-local"
+                />
+                <input type="submit" className="submit-btn" />
+              </form>
+            </>
+          ) : (
+            <p onClick={() => setUpdating((prev) => !prev)}>
+              {weekday}, {month}/{day}/{year} @ {time}
+            </p>
+          )}
         </div>
         <div className="status-buttons">
           <AiFillCheckCircle

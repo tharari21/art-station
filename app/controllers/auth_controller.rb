@@ -10,7 +10,7 @@ class AuthController < ApplicationController
                 expires: 1.week.from_now,
                 httponly: true,
             }
-            render json: {id: user.id, username: user.username, email: user.email, admin: user.admin }, status: :created
+            render json: {id: user.id, username: user.username, email: user.email, admin: user.admin, first_name: user.first_name, last_name: user.last_name, phone_number: user.phone_number }, status: :created
             
         else
             render json: {errors: ["Invalid username or password"]}, status: :unprocessable_entity

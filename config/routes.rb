@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/logged_in', to: 'auth#show'
   get '/users/:id/orders', to: 'users#orders'
+  get '/users/:id/painting_classes', to: 'users#classes'
   
   post '/webhooks', to: 'webhooks#create'
 
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   get '/party_requests/pending', to: 'party_requests#pending'
   post '/party_requests', to: 'party_requests#create'
   patch '/party_requests/:id/confirm', to: 'party_requests#confirm'
+  patch '/party_requests/:id', to: 'party_requests#update'
   delete '/party_requests/:id', to: 'party_requests#destroy'
   mount ActionCable.server => "/cable"
 
