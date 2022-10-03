@@ -5,6 +5,7 @@ class User < ApplicationRecord
     validates :password_digest, length: {minimum: 6}
 
     has_many :orders
-    # has_many :painting_class_registrations
-    # has_many :painting_classes, through: :painting_class_registrations
+    has_many :painting_class_registrations
+    has_many :painting_classes, through: :painting_class_registrations
+    has_many :party_requests
 end

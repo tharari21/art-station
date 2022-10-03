@@ -3,7 +3,12 @@ class PartyRequestsController < ApplicationController
         render json: PartyRequest.all
     end
     def create
-        party_request = PartyRequest.create!(party_request_params)
+        get_current_user
+        if @user
+            party_request = PartyRequest.create!(user_id: @user.id, date: params[:date], package: params[:package], number_of_participants: params[:number_of_participants])
+        else
+            party_request = PartyRequest.create!(party_request_params)
+        end
         party_request.update(pending: true)
         PartyRequestedMailer.with(party_request: party_request).admin_party_request.deliver_later
         PartyRequestedMailer.with(party_request: party_request).user_party_request.deliver_later
@@ -38,10 +43,10 @@ class PartyRequestsController < ApplicationController
     end
     def pending
         pending = PartyRequest.where('date > ? AND pending=true', DateTime.current)
-        render json: pending
+        render json: pending, include: [:user]
     end
     private
     def party_request_params
-        params.permit(:date, :name, :email, :phone_number, :number_of_participants, :package)
+        params.permit(:date, :name, :email, :phone_number, :number_of_participants, :package, :user_id)
     end
 end

@@ -1,8 +1,8 @@
 class PaintingClassRegistrationsController < ApplicationController
 
     def create
-        
         painting_class = PaintingClass.find(params[:id])
+        get_current_user
         order_data = [{
             quantity: params[:number_of_students], 
             price_data: {
@@ -15,7 +15,6 @@ class PaintingClassRegistrationsController < ApplicationController
             }
         }]
 
-        user = get_current_user
         session = Stripe::Checkout::Session.create(
             mode: "payment",
             payment_method_types: ['card'],
@@ -24,10 +23,11 @@ class PaintingClassRegistrationsController < ApplicationController
             # can use price data if you're creating on the fly
             # line_items: [{quantity: params[:number_of_students],price: "price_1LlIfsCvxdyaKhHoL71UZoEk"}],
             line_items: order_data,
-            customer_email: user&.email || params[:email],
+            customer_email: @user&.email || params[:email],
             metadata: {
                 class_id: params[:id],
-                name: params[:name],
+                user_id: @user&.id || nil,
+                name:  params[:name],
                 email: params[:email],
                 phone_number: params[:phone_number],
                 number_of_students: params[:number_of_students],

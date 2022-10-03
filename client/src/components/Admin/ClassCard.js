@@ -1,35 +1,36 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 import { convertDate } from "../Classes/util";
-import RegisteredForClassCard from './RegisteredForClassCard';
+import RegisteredForClassCard from "./RegisteredForClassCard";
 const ClassCard = ({ class_ }) => {
-  const {weekday, month, day, year, time} = convertDate(class_.date)
-  const [registered, setRegistered] = useState([])
-  const [errors, setErrors] = useState(null)
-  const [isOpened, setIsOpened] = useState(false)
+  const { weekday, month, day, year, time } = convertDate(class_.date);
+  const [registered, setRegistered] = useState([]);
+  const [errors, setErrors] = useState(null);
+  const [isOpened, setIsOpened] = useState(false);
 
-  
   const displayRegistered = async () => {
-    if (!isOpened && registered.length === 0)  {
-        try {
-            const req = await fetch(`http://localhost:3000/classes/${class_.id}/registered`)
-            const res = await req.json()
-            if (req.ok) {
-                setRegistered(() => {
-                    setIsOpened(true)
-                    return res;
-                })
-            } else {
-                setErrors(res)
-            }
-        } catch (e) {
-            setErrors(e.message)
+    if (!isOpened && registered.length === 0) {
+      try {
+        const req = await fetch(
+          `http://localhost:3000/classes/${class_.id}/registered`
+        );
+        const res = await req.json();
+        if (req.ok) {
+          console.log("res", res);
+          setRegistered(() => {
+            setIsOpened(true);
+            return res;
+          });
+        } else {
+          setErrors(res);
         }
+      } catch (e) {
+        setErrors(e.message);
+      }
     } else {
-        setIsOpened((prev) => !prev)
+      setIsOpened(prev => !prev);
     }
+  };
 
-  }
-    
   return (
     <div>
       <div className="class-card" onClick={displayRegistered}>
@@ -45,7 +46,7 @@ const ClassCard = ({ class_ }) => {
       </div>
       {isOpened && (
         <ul className="registered">
-          {registered?.map((reservation) => (
+          {registered?.map(reservation => (
             <RegisteredForClassCard
               key={reservation.id}
               reservation={reservation}
@@ -57,4 +58,4 @@ const ClassCard = ({ class_ }) => {
   );
 };
 
-export default ClassCard
+export default ClassCard;

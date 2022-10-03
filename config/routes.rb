@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/logged_in', to: 'auth#show'
   get '/users/:id/orders', to: 'users#orders'
-  get '/users/:id/painting_classes', to: 'users#classes'
+  get '/users/:id/painting_classes', to: 'users#upcoming_classes'
+  get '/users/:id/party_requests', to: 'users#upcoming_party_requests'
   
   post '/webhooks', to: 'webhooks#create'
 
@@ -26,7 +27,6 @@ Rails.application.routes.draw do
   # here is where we should implement nested routes
   get '/classes/:id/currently_occupied', to: 'painting_classes#currently_occupied'
   get '/classes/:id/registered', to: 'painting_classes#registered'
-  
   post '/classes/:id/register', to: 'painting_class_registrations#create'
 
   get '/paintings', to: 'paintings#index'

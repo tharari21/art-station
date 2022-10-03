@@ -13,9 +13,6 @@ class ApplicationController < ActionController::API
         payload[:exp] = exp
         JWT.encode(payload, SECRET_KEY)
     end
-    # def auth_headers
-    #     request.headers["Authorization"]
-    # end
     def decoded_token
         jwt = cookies.signed[:jwt]
         puts jwt

@@ -1,14 +1,15 @@
 class PartyRequest < ApplicationRecord
-    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
     validates :date, presence: true
-    validates :name, presence: true
-    validates :phone_number, presence: true
     validate :valid_number_of_participants
     validates :package, presence:true
     enum :package, [ :local_train, :express_train, :a_train, :adult_party ]
     validate :is_future?
     validate :is_valid_time?
     validate :is_open?
+
+    belongs_to :user,optional: true
+    
     def broadcast
         ActionCable.server.broadcast("party_requests", self)
     end

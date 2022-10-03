@@ -5,7 +5,7 @@
   <body>
     <h1>You have successfully requested to book a party at the art station</h1>
     <p>
-      Hello <%= @party_request.name %>, <br/>
+      Hello <%= @party_request&.user.name || @party_request.name %>, <br/>
       Thank you for booking a class with us.
     </p>
     <br>

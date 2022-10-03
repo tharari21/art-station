@@ -36,13 +36,13 @@ class WebhooksController < ApplicationController
             
             # ClassBookedMailer.class_booked(event[:data][:object][:customer_details][:email]).deliver_later
             session = event.data.object # does not contain line items
-            p "DATA STUFF"
-
             painting_class = PaintingClass.find(session.metadata.class_id.to_i)
-            registration = painting_class.painting_class_registrations.create!(
-                name: session.metadata.name, 
-                email: session.metadata.email, 
-                phone_number: session.metadata.phone_number,
+            registration = painting_class.painting_class_registrations.create(
+                # user_id: session.metadata&.user_id&.to_i, # &. only works for nil classes or hashes but session.metadata is a stripe object
+                user_id: session.metadata.try(:user_id).try(:to_i),
+                name: session.metadata.try(:name), 
+                email: session.metadata.try(:email), 
+                phone_number: session.metadata.try(:phone_number),
                 number_of_students: session.metadata.number_of_students.to_i
             )
             registration.broadcast
@@ -53,6 +53,7 @@ class WebhooksController < ApplicationController
             
             ClassBookedMailer.with(registration: registration, email: session.metadata.email).notify_user.deliver_later
             ClassBookedMailer.with(registration: registration).notify_admin.deliver_later
+
             
             
             

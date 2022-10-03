@@ -1,6 +1,6 @@
 class PaintingClass < ApplicationRecord
     belongs_to :painting
-    has_many :painting_class_registrations
+    has_many :painting_class_registrations # dependent: :destroy # When a painting class is deleted
     has_many :users, through: :painting_class_registrations
 
     def seats_available

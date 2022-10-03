@@ -27,7 +27,7 @@ class PaintingClassesController < ApplicationController
     
     def registered
         painting_class = PaintingClass.find(params[:id])
-        render json: painting_class.painting_class_registrations
+        render json: painting_class.painting_class_registrations, include: [:user]
     end
 
     def get_latest_classes

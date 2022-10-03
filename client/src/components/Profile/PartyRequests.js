@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const PartyRequests = () => {
+const PartyRequests = ({ upcomingPartyRequests }) => {
   return (
-    <div>PartyRequests</div>
-  )
-}
+    <div>
+      <h1>Party Requests</h1>
+      {upcomingPartyRequests?.map(upcomingPartyRequest => (
+        <p key={upcomingPartyRequest}>{upcomingPartyRequest.date}</p>
+      ))}
+    </div>
+  );
+};
 
-export default PartyRequests
+export default PartyRequests;
