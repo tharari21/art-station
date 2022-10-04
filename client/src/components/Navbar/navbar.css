@@ -24,33 +24,44 @@ nav {
     justify-content: space-around;
     align-items: flex-start;
 }
+
+.navbar__link:nth-child(1){
+    /* background-color:#2f7fe7; */
+    background-image: url('../../assets/red.png');
+}
+
+.navbar__link:nth-child(2),.active {
+    background-image: url('../../assets/orange.png');
+}
+.navbar__link:nth-child(3) {
+    background-image: url('../../assets/light-blue.png');
+}
+.navbar__link:nth-child(4) {
+    background-image: url('../../assets/green.png');
+}
+.navbar__link:nth-child(5) {
+    background-image: url('../../assets/purple.png');
+}
+.navbar__link:nth-child(6) {
+    background-image: url('../../assets/purple.png');
+}
+.navbar__link:nth-child(7) {
+    background-image: url('../../assets/purple.png');
+}
+.navbar__link:nth-child(8) {
+    background-image: url('../../assets/purple.png');
+}
+
 .navbar__item {
     list-style-type: none;
-    height: 50px; 
+    height: 50px;
     cursor: pointer;
     padding: 6px 4px;
     border-radius: 200px;
     
 }
-
-.navbar__link:nth-child(1):hover {
-    /* background-color:#2f7fe7; */
-    background-image: url('../../assets/Red.png');
-    
-}
-.navbar__link:nth-child(2):hover {
-    background-image: url('../../assets/Orange.png');
-}
-.navbar__link:nth-child(3):hover {
-    background-image: url('../../assets/Light\ Blue.png');
-}
-.navbar__link:nth-child(4):hover {
-    background-image: url('../../assets/Green.png');
-}
-.navbar__link:nth-child(5):hover {
-    background-image: url('../../assets/Purple.png');
-}
 .navbar__link {
+    /* background-image: none !important; */
     font-size: 1.8em;
     color: inherit;
     text-decoration: none;

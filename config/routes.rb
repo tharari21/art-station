@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/users/:id/orders', to: 'users#orders'
   get '/users/:id/painting_classes', to: 'users#upcoming_classes'
   get '/users/:id/party_requests', to: 'users#upcoming_party_requests'
+  patch '/users/:id', to: 'users#update'
   
   post '/webhooks', to: 'webhooks#create'
 
@@ -33,8 +34,8 @@ Rails.application.routes.draw do
   post '/paintings', to: 'paintings#create'
 
   get '/party_requests/pending', to: 'party_requests#pending'
+  get '/party_requests', to: 'party_requests#index'
   post '/party_requests', to: 'party_requests#create'
-  patch '/party_requests/:id/confirm', to: 'party_requests#confirm'
   patch '/party_requests/:id', to: 'party_requests#update'
   delete '/party_requests/:id', to: 'party_requests#destroy'
   mount ActionCable.server => "/cable"

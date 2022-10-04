@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { convertDate } from "../Classes/util";
+import { convertDate } from "../utils/util";
 import {
   AiFillCloseCircle,
   AiFillCheckCircle,
@@ -15,16 +15,25 @@ const PartyRequestCard = ({ partyRequest, setPartyRequests }) => {
     if (input === "yes") {
       // send request
       const req = await fetch(
-        `http://localhost:3000/party_requests/${partyRequest.id}/confirm`,
+        `http://localhost:3000/party_requests/${partyRequest.id}`,
         {
           method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "pending_payment" }),
         }
       );
       const res = await req.json();
       console.log(res);
       if (req.ok) {
         setPartyRequests(prev =>
-          prev.filter(item => item.id !== partyRequest.id)
+          prev.map(item => {
+            if (item.id === res.id) {
+              return res;
+            }
+            return item;
+          })
         );
       } else {
       }
@@ -36,15 +45,26 @@ const PartyRequestCard = ({ partyRequest, setPartyRequests }) => {
     );
     if (input === "yes") {
       const req = await fetch(
-        `http://localhost:3000/party_requests/${partyRequest.id}/confirm`,
+        `http://localhost:3000/party_requests/${partyRequest.id}`,
         {
           method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "rejected" }),
         }
       );
       const res = await req.json();
+
+      console.log("res", res);
       if (req.ok) {
         setPartyRequests(prev =>
-          prev.filter(item => item.id !== partyRequest.id)
+          prev.map(item => {
+            if (item.id === res.id) {
+              return res;
+            }
+            return item;
+          })
         );
       } else {
       }
@@ -76,7 +96,9 @@ const PartyRequestCard = ({ partyRequest, setPartyRequests }) => {
         <div className="person-info">
           <h3>
             {partyRequest?.name ||
-              partyRequest.user.first_name + " " + partyRequest.user.last_name}
+              partyRequest?.user?.first_name +
+                " " +
+                partyRequest?.user?.last_name}
           </h3>
         </div>
         <div className="contact-info">
@@ -101,18 +123,20 @@ const PartyRequestCard = ({ partyRequest, setPartyRequests }) => {
             </p>
           )}
         </div>
-        <div className="status-buttons">
-          <AiFillCheckCircle
-            onClick={handlePartyConfirm}
-            color="green"
-            size={30}
-          />
-          <AiFillCloseCircle
-            onClick={handlePartyReject}
-            color="red"
-            size={30}
-          />
-        </div>
+        {partyRequest.status === "pending" && (
+          <div className="status-buttons">
+            <AiFillCheckCircle
+              onClick={handlePartyConfirm}
+              color="green"
+              size={30}
+            />
+            <AiFillCloseCircle
+              onClick={handlePartyReject}
+              color="red"
+              size={30}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

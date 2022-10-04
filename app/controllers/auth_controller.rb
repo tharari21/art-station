@@ -1,8 +1,9 @@
 class AuthController < ApplicationController
     def create
         p "USER"
-        user = User.find_by!(email: params[:email])
-        p user
+
+        p params[:username]
+        user = User.find_by!(username: params[:username])
         if user.authenticate(params[:password])
             token = encode_token({user_id: user.id})
             cookies.signed[:jwt] = {

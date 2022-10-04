@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { convertDate } from "../Classes/util";
+import { convertDate, capitalize } from "../utils/util";
 import RegisteredForClassCard from "./RegisteredForClassCard";
 const ClassCard = ({ class_ }) => {
   const { weekday, month, day, year, time } = convertDate(class_.date);
+
   const [registered, setRegistered] = useState([]);
   const [errors, setErrors] = useState(null);
   const [isOpened, setIsOpened] = useState(false);
@@ -37,7 +38,7 @@ const ClassCard = ({ class_ }) => {
         <img className="class-card__image" src={class_.painting.image} />
         <div>
           <div>
-            <h2>{class_.painting.name}</h2>
+            <h2>{capitalize(class_.painting.name)}</h2>
             <p>
               {weekday}, {month}/{day}/{year} @{time}
             </p>

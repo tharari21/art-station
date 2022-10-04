@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
-import { convertDate } from "./util";
+import { convertDate } from "../utils/util";
 import { ActionCableContext } from "../..";
 
 const stripePromise = loadStripe(

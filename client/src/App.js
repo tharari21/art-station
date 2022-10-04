@@ -14,6 +14,7 @@ import ClassRegister from "./pages/Classes/ClassRegister";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Calendar from "./pages/Calendar";
 import ProtectedAdminRoute from "./components/utils/AuthRoute";
+import Store from "./pages/Store/Store";
 import Profile from "./pages/Profile";
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path="/login" element={<Auth type="login" />}></Route>
         <Route path="/classes" element={<Classes />}></Route>
         <Route path="/parties" element={<Parties />}></Route>
+        <Route path="/store" element={<Store />}></Route>
         <Route path="/contact-us" element={<Contact />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route

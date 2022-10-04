@@ -1,7 +1,6 @@
 import "./classes.css";
 import { useNavigate } from "react-router-dom";
-import { convertDate } from "./util";
-
+import { convertDate } from "../utils/util";
 const ClassCard = ({ classObj }) => {
   const navigate = useNavigate();
   const { weekday, month, day, year, time } = convertDate(classObj.date);

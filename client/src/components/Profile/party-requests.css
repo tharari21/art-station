@@ -1,0 +1,6 @@
+.party-requests-container {
+    margin: 0 auto;
+    width: 700px;
+    height: 500px;
+    overflow-y: scroll;
+}

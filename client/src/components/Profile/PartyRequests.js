@@ -1,11 +1,11 @@
-import React from "react";
-
-const PartyRequests = ({ upcomingPartyRequests }) => {
+import PartyRequestCard from "./PartyRequestCard";
+import "./party-requests.css";
+const PartyRequests = ({ partyRequests }) => {
   return (
-    <div>
+    <div className="party-requests-container">
       <h1>Party Requests</h1>
-      {upcomingPartyRequests?.map(upcomingPartyRequest => (
-        <p key={upcomingPartyRequest}>{upcomingPartyRequest.date}</p>
+      {partyRequests?.map(partyRequest => (
+        <PartyRequestCard key={partyRequest.id} partyRequest={partyRequest} />
       ))}
     </div>
   );

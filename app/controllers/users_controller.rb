@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorized, only: [:orders, :upcoming_classes, :upcoming_party_requests]
+    before_action :authorized, only: [:update,:orders, :upcoming_classes, :upcoming_party_requests]
     def create
         user = User.create!(user_params)
         user.admin = false
@@ -9,13 +9,18 @@ class UsersController < ApplicationController
             expires: 1.week.from_now,
             httponly: true, 
         }
-        render json: {id: user.id, username: user.username, email: user.email, admin: user.admin}, status: :created
+        render json: {id: user.id, username: user.username, email: user.email, admin: user.admin, first_name: user.first_name, last_name: user.last_name, phone_number: user.phone_number }, status: :created
+    end
+    def update
+        @user.update!(user_params)
+        render json: {id: @user.id, username: @user.username, email: @user.email, admin: @user.admin, first_name: @user.first_name, last_name: @user.last_name, phone_number: @user.phone_number }
+        
     end
     def orders
         render json: @user.orders
     end
     def upcoming_classes
-        registrations = @user.painting_class_registrations.joins(:painting_class).where("date > ?", DateTime.current)
+        registrations = @user.painting_class_registrations
         render json: registrations, include: [:painting_class => {:include => :painting}]
     end
     def upcoming_party_requests
@@ -24,6 +29,6 @@ class UsersController < ApplicationController
     end
     private
     def user_params
-        params.permit(:username, :email, :password, :password_confirmation)
+        params.permit(:username, :email, :password, :password_confirmation, :first_name, :last_name, :phone_number)
     end
 end

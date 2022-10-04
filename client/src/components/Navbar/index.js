@@ -1,23 +1,23 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import Dropdown from './Dropdown';
+import Dropdown from "./Dropdown";
 import { useSelector, useDispatch } from "react-redux";
-import {login} from '../../redux/user'
-import {AiFillCaretDown} from 'react-icons/ai'
-import "./navbar.css"
+import { login } from "../../redux/user";
+import { AiFillCaretDown } from "react-icons/ai";
+import "./navbar.css";
 const Navbar = () => {
-  const user = useSelector((state) => state.user.value)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const user = useSelector(state => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogout = async () => {
-    const req = await fetch('http://localhost:3000/logout', {
+    const req = await fetch("http://localhost:3000/logout", {
       method: "DELETE",
-      credentials: "include"
-    })
+      credentials: "include",
+    });
     if (req.ok) {
-      dispatch(login(null))
-      navigate("/", {replace:true})
+      dispatch(login(null));
+      navigate("/", { replace: true });
     }
-  }
+  };
 
   return (
     <nav>
@@ -26,12 +26,17 @@ const Navbar = () => {
           <NavLink className="navbar__link" to="/">
             <li className="navbar__item">Home</li>
           </NavLink>
-          <NavLink className="navbar__link" to="/classes">
+          <NavLink
+            className="navbar__link"
+            to="/classes"
+            activeClassName="active"
+          >
             <li className="navbar__item">Classes</li>
           </NavLink>
           <NavLink className="navbar__link navbar__item--hoverable" to="/store">
-             <li className="navbar__item">
-              Supplies <AiFillCaretDown size=".5em" style={{ float: "left" }} />
+            <li className="navbar__item">
+              Supplies
+              {/* <AiFillCaretDown size=".5em" style={{ float: "left" }} /> */}
             </li>
             {/* <Dropdown /> */}
           </NavLink>
@@ -41,9 +46,9 @@ const Navbar = () => {
           <NavLink className="navbar__link" to="/framing">
             <li className="navbar__item">Framing</li>
           </NavLink>
-          <NavLink className="navbar__link" to="/calendar">
+          {/* <NavLink className="navbar__link" to="/calendar">
             <li className="navbar__item">Calendar</li>
-          </NavLink>
+          </NavLink> */}
         </ul>
         <ul className="navbar__menu navbar__menu--auth">
           {user ? (
@@ -61,9 +66,9 @@ const Navbar = () => {
               </button>
               <NavLink className="navbar__link" to="/profile">
                 <li className="navbar__item navbar__item--auth">
-                  {user.username &&
-                    user.username.slice(0, 1).toUpperCase() +
-                      user.username.slice(1)}
+                  {user.first_name &&
+                    user.first_name.slice(0, 1).toUpperCase() +
+                      user.first_name.slice(1)}
                 </li>
               </NavLink>
             </>
@@ -81,6 +86,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

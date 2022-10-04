@@ -23,6 +23,7 @@ const ClassesContainer = ({ classes }) => {
   return (
     <div className="classes-container">
       <h1 className="classes-heading">Classes</h1>
+
       {classes?.map(class_ => (
         <ClassCard key={class_.id} class_={class_} />
       ))}

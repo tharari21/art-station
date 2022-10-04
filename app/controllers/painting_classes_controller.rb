@@ -31,7 +31,10 @@ class PaintingClassesController < ApplicationController
     end
 
     def get_latest_classes
-        PaintingClass.order(:date)
+        # order painting classes by date
+        # get unique painting ids
+        
+        painting_ids = PaintingClass.order(:date)
     end
 
     private

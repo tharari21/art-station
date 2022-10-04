@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import UserOrders from "../../components/Profile/UserOrders";
-import UpcomingClassRegistations from "../../components/Profile/UpcomingClassRegistations";
+import ClassRegistations from "../../components/Profile/ClassRegistations";
 import PartyRequests from "../../components/Profile/PartyRequests";
 import ProfileForm from "../../components/Profile/ProfileForm";
 import { useSelector } from "react-redux";
 import "./profile.css";
 const Profile = () => {
   const user = useSelector(state => state.user.value);
-  const [upcomingClassRegistrations, setUpcomingClassRegistrations] = useState(
-    []
-  );
-  const [upcomingPartyRequests, setUpcomingPartyRequests] = useState([]);
+  const [currentTab, setCurrentTab] = useState("profile"); // [profile,classes,parties]
+  const [classRegistrations, setClassRegistrations] = useState([]);
+  const [partyRequests, setPartyRequests] = useState([]);
   useEffect(() => {
-    const getUpcomingClassRegistrations = async () => {
+    const getClassRegistrations = async () => {
       try {
         const req = await fetch(
           `http://localhost:3000/users/${user.id}/painting_classes`,
@@ -21,7 +20,7 @@ const Profile = () => {
         const res = await req.json();
         console.log(res);
         if (req.ok) {
-          setUpcomingClassRegistrations(res);
+          setClassRegistrations(res);
         } else {
         }
       } catch (e) {
@@ -29,7 +28,7 @@ const Profile = () => {
         console.log(e);
       }
     };
-    const getUpcomingPartyRequests = async () => {
+    const getPartyRequests = async () => {
       try {
         const req = await fetch(
           `http://localhost:3000/users/${user.id}/party_requests`,
@@ -38,7 +37,7 @@ const Profile = () => {
         const res = await req.json();
         console.log(res);
         if (req.ok) {
-          setUpcomingPartyRequests(res);
+          setPartyRequests(res);
         } else {
         }
       } catch (e) {
@@ -46,9 +45,20 @@ const Profile = () => {
         console.log(e);
       }
     };
-    getUpcomingClassRegistrations();
-    getUpcomingPartyRequests();
+    if (user) {
+      getClassRegistrations();
+      getPartyRequests();
+    }
   }, [user]);
+
+  let page;
+  if (currentTab === "profile") {
+    page = <ProfileForm user={user} />;
+  } else if (currentTab === "classes") {
+    page = <ClassRegistations classRegistrations={classRegistrations} />;
+  } else if (currentTab === "parties") {
+    page = <PartyRequests partyRequests={partyRequests} />;
+  }
   return (
     <div className="profile">
       <div className="user-info">
@@ -57,12 +67,12 @@ const Profile = () => {
         </h1>
         <h5 className="user-title">Aspiring Painter</h5>
       </div>
-      {/* <UserOrders /> */}
-      <ProfileForm user={user} />
-      <UpcomingClassRegistations
-        upcomingClassRegistrations={upcomingClassRegistrations}
-      />
-      <PartyRequests upcomingPartyRequests={upcomingPartyRequests} />
+      <div className="tab-toggle">
+        <div onClick={() => setCurrentTab("profile")}>Profile</div>
+        <div onClick={() => setCurrentTab("classes")}>Classes</div>
+        <div onClick={() => setCurrentTab("parties")}>Party Requests</div>
+      </div>
+      {page}
     </div>
   );
 };

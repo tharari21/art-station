@@ -11,3 +11,15 @@
     margin: 1em;
     font-size: 1.2em;
 }
+.tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+.tab-toggle div {
+    background-color: aqua;
+    width: 200px;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: .6em 1em;
+}

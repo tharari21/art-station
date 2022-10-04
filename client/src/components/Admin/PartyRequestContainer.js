@@ -4,6 +4,7 @@ import "./party-requests.css";
 import PartyRequestCard from "./PartyRequestCard";
 
 const PartyRequestContainer = () => {
+  const [filterValue, setFilterValue] = useState("pending");
   const [partyRequests, setPartyRequests] = useState([]);
   const [errors, setErrors] = useState(null);
   const cable = useContext(ActionCableContext);
@@ -14,7 +15,6 @@ const PartyRequestContainer = () => {
       { channel: "PartyRequestChannel" },
       {
         received(data) {
-          console.log("NEW PARTY REQUEST");
           setPartyRequests(prev => [...prev, data]);
         },
         connected() {
@@ -34,7 +34,7 @@ const PartyRequestContainer = () => {
   useEffect(() => {
     const getPendingPartyRequests = async () => {
       try {
-        const req = await fetch("http://localhost:3000/party_requests/pending");
+        const req = await fetch("http://localhost:3000/party_requests");
         const res = await req.json();
         console.log(res);
         // throw new Error('You suckkk')
@@ -50,11 +50,25 @@ const PartyRequestContainer = () => {
     };
     getPendingPartyRequests();
   }, []);
+
+  const filteredPartyRequests = partyRequests.filter(partyRequest => {
+    if (filterValue === "all") {
+      return true;
+    }
+    return partyRequest.status === filterValue;
+  });
   return (
     <div className="party-request-container">
       <h1 className="party-request-heading">Party Requests</h1>
+      <select onChange={e => setFilterValue(e.target.value)}>
+        <option value="pending">Pending</option>
+        <option value="pending_payment">Pending Payment</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="rejected">Rejected</option>
+        <option value="all">All</option>
+      </select>
       {errors && errors}
-      {partyRequests?.map(request => (
+      {filteredPartyRequests?.map(request => (
         <PartyRequestCard
           key={request.id}
           partyRequest={request}

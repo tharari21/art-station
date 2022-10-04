@@ -11,4 +11,13 @@ class PaintingClassRegistration < ApplicationRecord
     def class_full?
         errors.add(:painting_class, "is full") if self.painting_class.full?
     end
+    def get_name
+        self.name || self.user.first_name
+    end
+    def get_email
+        self.email || self.user.email
+    end
+    def get_phone_number
+        self.phone_number || self.user.phone_number
+    end
 end

@@ -4,6 +4,7 @@ class PartyRequest < ApplicationRecord
     validate :valid_number_of_participants
     validates :package, presence:true
     enum :package, [ :local_train, :express_train, :a_train, :adult_party ]
+    enum :status,  {:pending => 0, :pending_payment => 1, :confirmed => 2, :rejected => 3}, default: 0
     validate :is_future?
     validate :is_valid_time?
     validate :is_open?
@@ -11,7 +12,7 @@ class PartyRequest < ApplicationRecord
     belongs_to :user,optional: true
     
     def broadcast
-        ActionCable.server.broadcast("party_requests", self)
+        ActionCable.server.broadcast("party_requests", self.as_json(include: :user))
     end
     def is_valid_time?
         errors.add(:date, "must be between 10 AM and 6 PM") unless self.date.hour >= 10 && self.date.hour <= 18
@@ -20,18 +21,14 @@ class PartyRequest < ApplicationRecord
         errors.add(:date, "must be in the future") unless self.date.future?
     end
     def confirm
-        payment_link = Stripe::PaymentLink.create({
-            line_items: [{price: "price_1LlIfsCvxdyaKhHoL71UZoEk", quantity: 3}],
-            after_completion: {type: 'redirect', redirect: {url: 'https://example.com'}},
-        })
-        PartyRequestedMailer.with(party_request: self).admin_party_confirmation.deliver_later
-        PartyRequestedMailer.with(party_request: self, payment_url: payment_link.url).user_party_confirmation.deliver_later
-        self.update(pending: false)
+        # generate payment link and email to user
+        
+        self.update(status: :confirmed)
 
     end
     def is_open?
         # This method checks if there is any party within 2 hours of this party
-        dates = PartyRequest.where('pending=false').pluck(:date)
+        dates = PartyRequest.where(status: :confirmed).pluck(:date)
         invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 180}
 
         if invalid_date
@@ -45,6 +42,16 @@ class PartyRequest < ApplicationRecord
         when :adult_party
             errors.add(:number_of_participants, "must be at least 10") unless self.number_of_participants >= 10
         end
+    end
+
+    def get_name
+        self&.name || self.user.first_name
+    end
+    def get_email
+        self&.email || self.user.email
+    end
+    def get_phone_number
+        self&.phone_number || self.user.email
     end
     
 

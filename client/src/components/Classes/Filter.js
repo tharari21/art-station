@@ -1,5 +1,5 @@
 import "./filter.css";
-import { convertDate } from "./util";
+import { convertDate } from "../utils/util";
 const Filter = ({ classes }) => {
   const paintings = classes?.reduce((prev, cur) => {
     if (!prev.find(item => item.id === cur.painting.id)) {
