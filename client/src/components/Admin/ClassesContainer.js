@@ -13,14 +13,16 @@ const ClassesContainer = ({ classes, setClasses, paintings }) => {
       },
       {
         received(data) {
-          // setClasses(prev =>
-          //   prev.map(class_ => {
-          //     if (class_.id === data.id) {
-          //       class_.painting_class_registrations.push(data);
-          //     }
-          //     return class_;
-          //   })
-          // );
+          console.log("web socket data", data);
+          setClasses(prev =>
+            prev.map(class_ => {
+              console.log(class_.id + "===" + data.painting_class_id);
+              if (class_.id === data.painting_class_id) {
+                class_.painting_class_registrations.push(data);
+              }
+              return class_;
+            })
+          );
         },
       }
     );

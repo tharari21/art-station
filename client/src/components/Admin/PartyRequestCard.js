@@ -104,6 +104,7 @@ const PartyRequestCard = ({ partyRequest, setPartyRequests }) => {
         <div className="contact-info">
           <p>{partyRequest?.email || partyRequest.user.email}</p>
           <p>{partyRequest?.phone_number || partyRequest.user.phone_number}</p>
+          <p>Number of Participants: {partyRequest.number_of_participants}</p>
         </div>
         <div className="party-info">
           {updating ? (

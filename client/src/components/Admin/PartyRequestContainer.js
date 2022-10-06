@@ -10,12 +10,43 @@ const PartyRequestContainer = () => {
   const cable = useContext(ActionCableContext);
 
   useEffect(() => {
-    console.log("SUBSCRIBING");
+    const getPartyRequests = async () => {
+      try {
+        const req = await fetch("http://localhost:3000/party_requests");
+        const res = await req.json();
+        // throw new Error('You suckkk')
+        if (req.ok) {
+          setPartyRequests(res);
+        } else {
+          setErrors(res);
+        }
+      } catch (e) {
+        setErrors(e.message);
+      }
+    };
+    getPartyRequests();
     const channel = cable.subscriptions.create(
       { channel: "PartyRequestChannel" },
       {
         received(data) {
-          setPartyRequests(prev => [...prev, data]);
+          // Its getting websocket data on confirmation but its adding another party request
+          // and not updating. Add condiional to see if party request exists or not
+
+          // If party request exists
+          setPartyRequests(prev => {
+            let found = false;
+            const updated = prev.map(request => {
+              if (request.id === data.id) {
+                found = true;
+                return data;
+              }
+              return request;
+            });
+            if (!found) {
+              updated.push(data);
+            }
+            return updated;
+          });
         },
         connected() {
           // Called when the subscription is ready for use on the server
@@ -30,25 +61,6 @@ const PartyRequestContainer = () => {
     return () => {
       channel.unsubscribe();
     };
-  }, []);
-  useEffect(() => {
-    const getPendingPartyRequests = async () => {
-      try {
-        const req = await fetch("http://localhost:3000/party_requests");
-        const res = await req.json();
-        console.log(res);
-        // throw new Error('You suckkk')
-        if (req.ok) {
-          setPartyRequests(res);
-        } else {
-          setErrors(res);
-        }
-      } catch (e) {
-        console.log("err", e);
-        setErrors(e.message);
-      }
-    };
-    getPendingPartyRequests();
   }, []);
 
   const filteredPartyRequests = partyRequests.filter(partyRequest => {

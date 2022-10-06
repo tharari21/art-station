@@ -77,6 +77,7 @@ class WebhooksController < ApplicationController
         if party_request.update(status: :confirmed)
             PartyRequestedMailer.with(party_request: party_request).admin_party_confirmed.deliver_later
             PartyRequestedMailer.with(party_request: party_request).user_party_confirmed.deliver_later
+            party_request.broadcast
         else
             p "ERRORS"
             p party_request.errors.full_messages

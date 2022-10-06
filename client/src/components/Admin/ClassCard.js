@@ -8,39 +8,17 @@ const ClassCard = ({ class_, setClasses }) => {
   const [errors, setErrors] = useState(null);
   const [isOpened, setIsOpened] = useState(false);
 
-  const displayRegistered = async () => {
-    if (!isOpened && registered.length === 0) {
-      try {
-        const req = await fetch(
-          `http://localhost:3000/classes/${class_.id}/registered`
-        );
-        const res = await req.json();
-        if (req.ok) {
-          console.log("res", res);
-          setRegistered(() => {
-            setIsOpened(true);
-            return res;
-          });
-        } else {
-          setErrors(res);
-        }
-      } catch (e) {
-        setErrors(e.message);
-      }
+  
+  const displayRegistered = () => {
+    if (!isOpened) {
+      setRegistered(() => {
+        setIsOpened(true);
+        return class_.painting_class_registrations;
+      });
     } else {
-      setIsOpened(prev => !prev);
+      setIsOpened(false);
     }
   };
-  // const betterDisplayRegistered = () => {
-  //   if (!isOpened) {
-  //     setRegistered(() => {
-  //       setIsOpened(true);
-  //       return class_.painting_class_registrations;
-  //     });
-  //   } else {
-  //     setIsOpened(false);
-  //   }
-  // };
   const deleteClass = async () => {
     const input = prompt("Are you sure? Type yes to delete class");
     if (input !== "yes") return;
