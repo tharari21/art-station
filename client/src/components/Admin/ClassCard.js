@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { convertDate, capitalize } from "../utils/util";
 import RegisteredForClassCard from "./RegisteredForClassCard";
-const ClassCard = ({ class_ }) => {
+const ClassCard = ({ class_, setClasses }) => {
   const { weekday, month, day, year, time } = convertDate(class_.date);
 
   const [registered, setRegistered] = useState([]);
@@ -31,6 +31,27 @@ const ClassCard = ({ class_ }) => {
       setIsOpened(prev => !prev);
     }
   };
+  // const betterDisplayRegistered = () => {
+  //   if (!isOpened) {
+  //     setRegistered(() => {
+  //       setIsOpened(true);
+  //       return class_.painting_class_registrations;
+  //     });
+  //   } else {
+  //     setIsOpened(false);
+  //   }
+  // };
+  const deleteClass = async () => {
+    const input = prompt("Are you sure? Type yes to delete class");
+    if (input !== "yes") return;
+    const req = await fetch(`http://localhost:3000/classes/${class_.id}`, {
+      method: "DELETE",
+    });
+    if (req.ok) {
+      setClasses(prev => prev.filter(item => item.id !== class_.id));
+    } else {
+    }
+  };
 
   return (
     <div>
@@ -44,6 +65,9 @@ const ClassCard = ({ class_ }) => {
             </p>
           </div>
         </div>
+        <button onClick={deleteClass} className="delete-class-btn">
+          X
+        </button>
       </div>
       {isOpened && (
         <ul className="registered">

@@ -1,3 +1,27 @@
 .register-form-section {
     margin: 3em 5em;
 }
+.alert {
+    position: fixed;
+    left: 50%;
+    bottom: 100px;
+    transform: translate(-50%);
+    width: 800px;
+    height: 70px;
+    padding: 1em;
+    border-radius: 16px;
+    
+    display: flex;
+}
+.success {
+    background-color: rgb(151, 243, 151);
+    
+}
+.error {
+    background-color: rgb(243, 171, 151);
+
+}
+
+.message {
+    font-size: 2rem;
+}

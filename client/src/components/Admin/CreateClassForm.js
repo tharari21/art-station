@@ -5,7 +5,6 @@ const CreateClassForm = ({ addClass, paintings }) => {
   tomorrow.setDate(tomorrow.getDate() + 1);
   // todaysDate.setTime(todaysDate.getTime() + 2 * 60 * 60 * 1000);
   tomorrow = tomorrow.toISOString().slice(0, -1);
-  console.log("paintings", paintings);
   const [formData, setFormData] = useState({
     date: tomorrow,
     painting_id: 1,
@@ -26,10 +25,11 @@ const CreateClassForm = ({ addClass, paintings }) => {
         body: JSON.stringify(formData),
       });
       const res = await req.json();
+      console.log(res);
       if (req.ok) {
+        alert("Class Created!");
         addClass(res);
       } else {
-        console.log(res);
         setErrors(res.errors);
       }
     } catch (e) {}
@@ -53,7 +53,7 @@ const CreateClassForm = ({ addClass, paintings }) => {
         onChange={handleChange}
       />
       <input type="submit" />
-      {errors.length > 0 && errors.map(err => <p>{err}</p>)}
+      {errors?.length > 0 && errors.map(err => <p key={err}>{err}</p>)}
     </form>
   );
 };

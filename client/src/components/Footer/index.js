@@ -1,6 +1,6 @@
 import { AiFillInstagram, AiFillFacebook } from "react-icons/ai";
-import {FaTiktok} from 'react-icons/fa'
-import "./footer.css"
+import { FaTiktok } from "react-icons/fa";
+import "./footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
@@ -12,14 +12,14 @@ const Footer = () => {
               Closed
             </li>
             <li>Contact: 718-645-4545 </li>
-            <li>1303 Avenue U, Brooklyn NY</li>
           </ul>
         </div>
         <div className="footer-item">
           <ul className="footer-list">
+            <li>1303 Avenue U, Brooklyn NY</li>
             <li>Terms & Conditions</li>
-            <li>Three</li>
-            <li>Four</li>
+            <li>Our Philosophy</li>
+            {/* <li></li> */}
           </ul>
         </div>
       </div>
@@ -42,6 +42,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorized, only: [:update,:orders, :upcoming_classes, :upcoming_party_requests]
+    before_action :authorized, only: [:update,:orders, :classes, :upcoming_party_requests]
     def create
         user = User.create!(user_params)
         user.admin = false
@@ -19,9 +19,9 @@ class UsersController < ApplicationController
     def orders
         render json: @user.orders
     end
-    def upcoming_classes
+    def classes
         registrations = @user.painting_class_registrations
-        render json: registrations, include: [:painting_class => {:include => :painting}]
+        render json: registrations, include: {:painting_class => {:include => :painting}}
     end
     def upcoming_party_requests
         party_requests = @user.party_requests.where('date > ?', DateTime.current)

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
   get '/logged_in', to: 'auth#show'
   get '/users/:id/orders', to: 'users#orders'
-  get '/users/:id/painting_classes', to: 'users#upcoming_classes'
+  get '/users/:id/painting_classes', to: 'users#classes'
   get '/users/:id/party_requests', to: 'users#upcoming_party_requests'
   patch '/users/:id', to: 'users#update'
   
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   post '/classes', to: 'painting_classes#create'
   get '/classes/upcoming', to: 'painting_classes#upcoming'
   get '/classes/:id', to: 'painting_classes#show'
+  delete '/classes/:id', to: 'painting_classes#destroy'
   # here is where we should implement nested routes
   get '/classes/:id/currently_occupied', to: 'painting_classes#currently_occupied'
   get '/classes/:id/registered', to: 'painting_classes#registered'

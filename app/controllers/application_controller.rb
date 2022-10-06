@@ -24,7 +24,10 @@ class ApplicationController < ActionController::API
     end
     def get_current_user
         payload = decoded_token
+        p "LOGGING IN"
+        p payload
         if payload
+            p "LOGGED IN!"
             user_id = payload[0]['user_id']
             @user = User.find(user_id)
         end

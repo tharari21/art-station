@@ -3,7 +3,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>A user is requesting to book a party on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p") %></h1>
+    <h1>A user is requesting to book a party on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p") %>. Here are the details</h1>
+    <p>Name: <%= @party_request.get_name %></p>
+    <p>Email: <%= @party_request.get_email %></p>
+    <p>Phone Number: <%= @party_request.get_phone_number %></p>
+    <p>Number of People: <%= @party_request.number_of_participants %></p>
+    <p>Package: <%= @party_request.package_name %></p>
+    
+    <h1>Click <a href="http://localhost:4000/admin">here</a> to accept or reject it </h1>
     
   </body>
 </html>

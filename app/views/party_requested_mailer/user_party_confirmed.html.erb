@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  
+    <h1>Hello <%= @party_request.get_name %>! Your party request on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p")%> has been confirmed! </h1>
+    <p>Here are the details</p>
+    <p>Number of Participants: <%= @party_request.number_of_participants %></p>
+    <p>Package: <%= @party_request.package_name %></p>
+  </body>
+</html>

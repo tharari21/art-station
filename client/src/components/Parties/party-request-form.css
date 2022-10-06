@@ -1,8 +1,14 @@
 .party-request-form-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.party-request-form-container > div {
+    margin-top: 2em;
 }
 .party-request-form {
+    
     width: 45%;
     margin: 4em 0;
     padding: 2em;

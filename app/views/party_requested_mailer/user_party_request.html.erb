@@ -5,9 +5,14 @@
   <body>
     <h1>You have successfully requested to book a party at the art station</h1>
     <p>
-      Hello <%= @party_request&.user.first_name || @party_request.name %>, <br/>
+      Hello <%= @party_request.get_name %>! <br/>
       Thank you for booking a party with us.
     </p>
+    <p>Here are the details:</p>
+    <p>Email: <%= @party_request.get_email %></p>
+    <p>Phone Number: <%= @party_request.get_phone_number %></p>
+    <p>Number of People: <%= @party_request.number_of_participants %></p>
+    <p>Package: <%= @party_request.package_name %></p>
     <br>
     
   </body>

@@ -55,26 +55,28 @@ const Welcome = () => {
         </div>
       </div>
 
-      <h1>THIS WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1>
-      <h1>NEXT WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1>
+      {/* <h1>THIS WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1>
+      <h1>NEXT WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1> */}
       <UpdateContainer />
-      <h1>What is the Art Station philosophy?</h1>
-      <p>
-        The Art Station is a one-stop place to take advantage of fun activities
-        and learn about various art supplies available. For those who feel that
-        they could never do art or question their creative abilities, there is
-        always a teacher or craft assistant available to answer any questions
-        about our art supply store.
-      </p>
-      <p>
-        Need an art supply store? The Art Station has every art supply you could
-        need, regardless of age or skill level.
-      </p>
-      <p>
-        Looking for art classes? We have classes every Sunday, Tuesday, and
-        Friday. Children, adults, and seniors reduce their stress levels and
-        express their artistic side!
-      </p>
+      {/* <div className="our-philosophy">
+        <h1>What is the Art Station philosophy?</h1>
+        <p>
+          The Art Station is a one-stop place to take advantage of fun
+          activities and learn about various art supplies available. For those
+          who feel that they could never do art or question their creative
+          abilities, there is always a teacher or craft assistant available to
+          answer any questions about our art supply store.
+        </p>
+        <p>
+          Need an art supply store? The Art Station has every art supply you
+          could need, regardless of age or skill level.
+        </p>
+        <p>
+          Looking for art classes? We have classes every Sunday, Tuesday, and
+          Friday. Children, adults, and seniors reduce their stress levels and
+          express their artistic side!
+        </p>
+      </div> */}
     </div>
   );
 };

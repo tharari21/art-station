@@ -1,21 +1,24 @@
-import {useState, useEffect} from 'react'
-import PartyRequestContainer from '../../components/Admin/PartyRequestContainer'
-import ClassesContainer from '../../components/Admin/ClassesContainer'
-import CreateClassForm from '../../components/Admin/CreateClassForm';
-import CreatePaintingForm from '../../components/Admin/CreatePaintingForm';
-import { TrixEditor } from "react-trix";
-
+import { useState, useEffect } from "react";
+import PartyRequestContainer from "../../components/Admin/PartyRequestContainer";
+import ClassesContainer from "../../components/Admin/ClassesContainer";
+import CreateClassForm from "../../components/Admin/CreateClassForm";
+import CreatePaintingForm from "../../components/Admin/CreatePaintingForm";
+import { capitalize } from "../../components/utils/util";
+// import { TrixEditor } from "react-trix";
+import "./admin-dashboard.css";
 const AdminDashboard = () => {
   const [paintings, setPaintings] = useState(null);
   const [classes, setClasses] = useState(null);
   const [classErrors, setClassErrors] = useState(null);
   const [paintingErrors, setPaintingErrors] = useState(null);
-  const [displayForm, setDisplayForm] = useState("class")
-  const inverted = displayForm === "class" ? "painting" : "class"
+  const [displayForm, setDisplayForm] = useState("class");
+  const inverted = displayForm === "class" ? "painting" : "class";
   useEffect(() => {
     const getPaintings = async () => {
       try {
-        const req = await fetch("http://localhost:3000/paintings");
+        const req = await fetch("http://localhost:3000/paintings", {
+          credentials: "include",
+        });
         const res = await req.json();
         if (req.ok) {
           console.log("paintings", res);
@@ -27,9 +30,9 @@ const AdminDashboard = () => {
         setPaintingErrors(e.message);
       }
     };
-    const getUpcomingClasses = async () => {
+    const getClasses = async () => {
       try {
-        const req = await fetch("http://localhost:3000/classes/upcoming");
+        const req = await fetch("http://localhost:3000/classes");
         const res = await req.json();
         if (req.ok) {
           console.log(res);
@@ -41,19 +44,19 @@ const AdminDashboard = () => {
         setClassErrors(e.message);
       }
     };
-    getUpcomingClasses();
+    getClasses();
     getPaintings();
   }, []);
-  const addPainting = (newPainting) => {
+  const addPainting = newPainting => {
     setPaintings([...paintings, newPainting]);
-  } 
-  const addClass = (newClass) => {
-    setClasses([...classes, newClass])
-  }
+  };
+  const addClass = newClass => {
+    setClasses([...classes, newClass]);
+  };
   const toggleForm = () => {
-    setDisplayForm(inverted)
-  }
-  
+    setDisplayForm(inverted);
+  };
+
   return (
     <div>
       <div className="admin-dashboard-header">
@@ -61,18 +64,24 @@ const AdminDashboard = () => {
       </div>
       <div className="admin-dashboard">
         <PartyRequestContainer />
-        <ClassesContainer classes={classes} />
+        <ClassesContainer
+          classes={classes}
+          setClasses={setClasses}
+          paintings={paintings}
+        />
       </div>
-      <button onClick={toggleForm}>
-        Create {inverted.slice(0, 1).toLowerCase() + inverted.slice(1)}
-      </button>
-      {displayForm === "class" ? (
-        <CreateClassForm paintings={paintings} addClass={addClass} />
-      ) : (
-        <CreatePaintingForm addPainting={addPainting} />
-      )}
+      <div className="class-painting-form-container">
+        <button className="toggle-form-btn" onClick={toggleForm}>
+          Create {capitalize(inverted)}
+        </button>
+        {displayForm === "class" ? (
+          <CreateClassForm paintings={paintings} addClass={addClass} />
+        ) : (
+          <CreatePaintingForm addPainting={addPainting} />
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default AdminDashboard
+export default AdminDashboard;

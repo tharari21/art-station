@@ -18,7 +18,7 @@ const Profile = () => {
           { credentials: "include" }
         );
         const res = await req.json();
-        console.log(res);
+        console.log("users painting classes", res);
         if (req.ok) {
           setClassRegistrations(res);
         } else {
@@ -68,9 +68,24 @@ const Profile = () => {
         <h5 className="user-title">Aspiring Painter</h5>
       </div>
       <div className="tab-toggle">
-        <div onClick={() => setCurrentTab("profile")}>Profile</div>
-        <div onClick={() => setCurrentTab("classes")}>Classes</div>
-        <div onClick={() => setCurrentTab("parties")}>Party Requests</div>
+        <div
+          className={currentTab === "profile" ? "active-tab" : ""}
+          onClick={() => setCurrentTab("profile")}
+        >
+          Profile
+        </div>
+        <div
+          className={currentTab === "classes" ? "active-tab" : ""}
+          onClick={() => setCurrentTab("classes")}
+        >
+          Classes
+        </div>
+        <div
+          className={currentTab === "parties" ? "active-tab" : ""}
+          onClick={() => setCurrentTab("parties")}
+        >
+          Party Requests
+        </div>
       </div>
       {page}
     </div>

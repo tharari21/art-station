@@ -3,8 +3,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Your party request on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p") %> has been confirmed!</h1>
-    <p>Click here to pay! <%= @payment_url %></p>
+    <h1>Your party request on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p") %> has been accepted!</h1>
+    <p>Click here to pay the deposit. The party will not be reserved until you pay! <%= @payment_url %></p>
     
   </body>
 </html>

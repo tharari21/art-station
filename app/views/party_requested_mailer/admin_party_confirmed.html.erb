@@ -3,10 +3,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Party request on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p")%> awaiting payment </h1>
+    <h1>Party request on <%= @party_request.date.strftime("%B %d, %Y @ %I:%M %p") %> has been confirmed! </h1>
     <p>Here are the details</p>
     <p>Name: <%= @party_request.get_name %></p>
     <p>Phone Number: <%= @party_request.get_phone_number %></p>
     <p>Email: <%= @party_request.get_email %></p>
+    <p>Number of Participants: <%= @party_request.number_of_participants %></p>
+    <p>Package: <%= @party_request.package %></p>
   </body>
 </html>

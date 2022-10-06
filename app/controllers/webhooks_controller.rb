@@ -74,8 +74,13 @@ class WebhooksController < ApplicationController
     end
     def handle_party_deposit_checkout(metadata)
         party_request = PartyRequest.find(metadata.party_request_id)
-        party_request.update(status: :confirmed)
-        p "ERRORS"
-        p party_request.errors.full_messages
+        if party_request.update(status: :confirmed)
+            PartyRequestedMailer.with(party_request: party_request).admin_party_confirmed.deliver_later
+            PartyRequestedMailer.with(party_request: party_request).user_party_confirmed.deliver_later
+        else
+            p "ERRORS"
+            p party_request.errors.full_messages
+        end
+        
     end
 end

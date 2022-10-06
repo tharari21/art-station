@@ -26,6 +26,17 @@
     padding: 3em 2em;
     cursor: pointer;
     transition: .8s;
+    position: relative;
+}
+.delete-class-btn {
+    position: absolute;
+    right: 40px;
+    top: 95px;
+    /* background: none; */
+    width: 25px;
+    height: 30px;
+    border-radius: 32px;
+    cursor: pointer;
 }
 .class-card:hover {
     background-color: rgba(241, 80, 80, 0.7);
@@ -39,4 +50,8 @@
     height: 100px;
     padding-left: 2em;
     margin: 1em 0;
+}
+.reservation-card:hover {
+    background-color: rgb(131, 131, 247);
+    cursor: pointer;
 }

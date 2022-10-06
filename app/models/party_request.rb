@@ -1,6 +1,7 @@
 class PartyRequest < ApplicationRecord
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
     validates :date, presence: true
+    validates :number_of_participants, presence: true
     validate :valid_number_of_participants
     validates :package, presence:true
     enum :package, [ :local_train, :express_train, :a_train, :adult_party ]
@@ -27,9 +28,10 @@ class PartyRequest < ApplicationRecord
 
     end
     def is_open?
+        # TODO: Check party package. if its local then 1.5 hours... add this logic
         # This method checks if there is any party within 2 hours of this party
         dates = PartyRequest.where(status: :confirmed).pluck(:date)
-        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 180}
+        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 120}
 
         if invalid_date
             errors.add(:date, "is not available. Another party is already booked at that time")
@@ -51,7 +53,10 @@ class PartyRequest < ApplicationRecord
         self&.email || self.user.email
     end
     def get_phone_number
-        self&.phone_number || self.user.email
+        self&.phone_number || self.user.phone_number
+    end
+    def package_name
+        package.split("_").map {|word| word.capitalize}.join(" ")
     end
     
 

@@ -14,6 +14,7 @@ const PartyRequestForm = () => {
     phone_number: "",
     email: "",
     package: "",
+    number_of_participants: 0,
   });
   const [childrensParty, setChildrensParty] = useState(true);
   const [errors, setErrors] = useState(null);

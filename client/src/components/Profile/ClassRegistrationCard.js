@@ -2,13 +2,13 @@ import React from "react";
 import { convertDate, capitalize } from "../utils/util";
 const ClassRegistrationCard = ({ classRegistration }) => {
   const { weekday, month, day, year, time } = convertDate(
-    classRegistration?.painting_class.date
+    classRegistration?.painting_class?.date
   );
   return (
     <div className="class-registration-card">
       <h3>
         Painting Name:{" "}
-        {capitalize(classRegistration.painting_class.painting.name)}
+        {capitalize(classRegistration?.painting_class?.painting?.name)}
       </h3>
       <h6>
         Class Date: {weekday}, {month}/{day}/{year} at {time}

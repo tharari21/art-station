@@ -8,9 +8,9 @@
       Here are the details:
     </p>
     <br>
-    <p>Reservation Name: <%= @registration.name %></p>
-    <p>Reservation Email: <%= @registration.phone_number %></p>
-    <p>Reservation Phone Number: <%= @registration.phone_number %></p>
+    <p>Reservation Name: <%= @registration.get_name %></p>
+    <p>Reservation Email: <%= @registration.get_email %></p>
+    <p>Reservation Phone Number: <%= @registration.get_phone_number %></p>
     <p>Number of Students: <%= @registration.number_of_students %></p>
     <p>Date: <%= @registration.painting_class.date.strftime("%B %d, %Y @ %I:%M %p") %></p>
     

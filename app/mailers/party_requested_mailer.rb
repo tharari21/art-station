@@ -10,13 +10,21 @@ class PartyRequestedMailer < ApplicationMailer
     end
     def admin_party_confirmation
         @party_request = params[:party_request]
-        mail(to: "tharari93@gmail.com", subject: "You Have Confirmed #{@party_request.get_name}'s Request to Book a Party")
+        mail(to: "tharari93@gmail.com", subject: "You Have Accepted #{@party_request.get_name}'s Request to Book a Party")
     end
     def user_party_confirmation
         @party_request = params[:party_request]
         @payment_url = params[:payment_url]
-        mail(to: @party_request.get_email, subject: "Your Party Request Has Been Confirmed!")
+        mail(to: @party_request.get_email, subject: "Your Party Request Has Been Accepted! Please pay your deposit to lock your spot in!")
     end
     def user_party_rejection
+    end
+    def admin_party_confirmed
+        @party_request = params[:party_request]
+        mail(to: "tharari93@gmail.com", subject: "You Have Confirmed #{@party_request.get_name}'s Request to Book a Party")
+    end
+    def user_party_confirmed
+        @party_request = params[:party_request]
+        mail(to: @party_request.get_email, subject: "Your Party Request Has Been Confirmed!")
     end
 end

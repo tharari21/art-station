@@ -2,15 +2,13 @@ include Rails.application.routes.url_helpers
 class PaintingClassesController < ApplicationController
     before_action :authorized, only: [:create]
     def index
-        render json: PaintingClass.all
+        render json: PaintingClass.all.order(:date)
     end
     def create
+        # TODO: Make the checking for admin a method in application controller
         if @user.admin
             painting_class = PaintingClass.create!(painting_class_params)
-            # stripe_product = Stripe::Product.create({name: "#{painting_class.painting.name} #{painting_class.date}", images: [url_for(painting_class.painting.image)]})
-            # puts stripe_product
-            # Stripe::Price.create({product: stripe_product.id, unit_amount: 3000, currency: 'usd'},)
-            painting_class.update(price: 30)
+            painting_class.update!(price: 30)
             render json: painting_class, status: :created
         else
             render json: {errors: ["You must be an admin to create a class"]}, status: :unauthorized
@@ -20,8 +18,16 @@ class PaintingClassesController < ApplicationController
         painting_class = PaintingClass.find(params[:id])
         render json: painting_class
     end
+    def destroy
+        painting_class = PaintingClass.find(params[:id])
+        if painting_class.destroy
+            render json: painting_class
+        else
+            render json: {errors: painting_class.errors.full_messages}, status: :unprocessable_entity
+        end
+    end
     def upcoming
-        upcoming_classes = PaintingClass.includes(:painting_class_registrations).where('date > ?', Date.current)
+        upcoming_classes = PaintingClass.includes(:painting_class_registrations).where('date > ?', Date.current).order(:date)
         render json: upcoming_classes
     end
     
@@ -36,6 +42,7 @@ class PaintingClassesController < ApplicationController
         
         painting_ids = PaintingClass.order(:date)
     end
+    
 
     private
     def painting_class_params
