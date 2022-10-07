@@ -30,7 +30,7 @@ nav {
     background-image: url('../../assets/red.png');
 }
 
-.navbar__link:nth-child(2),.active {
+.navbar__link:nth-child(2) {
     background-image: url('../../assets/orange.png');
 }
 .navbar__link:nth-child(3) {
@@ -61,7 +61,6 @@ nav {
     
 }
 .navbar__link {
-    /* background-image: none !important; */
     font-size: 1.8em;
     color: inherit;
     text-decoration: none;

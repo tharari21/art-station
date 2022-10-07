@@ -5,6 +5,7 @@ import "./classes.css";
 const ClassesContainer = ({ classes, setClasses, paintings }) => {
   const [nameFilterBy, setNameFilterBy] = useState("all");
   const [dateFilterBy, setDateFilterBy] = useState("all");
+  const [futureClassesOnly, setFutureClassesOnly] = useState(false);
   const cable = useContext(ActionCableContext);
   useEffect(() => {
     const channel = cable.subscriptions.create(
@@ -37,17 +38,37 @@ const ClassesContainer = ({ classes, setClasses, paintings }) => {
     }
     return prev;
   }, []);
-
+  const today = new Date();
   const filteredClasses = classes?.filter(class_ => {
-    if (nameFilterBy === "all" && dateFilterBy === "all") {
+    if (
+      nameFilterBy === "all" &&
+      dateFilterBy === "all" &&
+      !futureClassesOnly
+    ) {
       // neither filter is on
       return true;
+    } else if (nameFilterBy === "all" && dateFilterBy === "all") {
+      return new Date(class_.date) > today;
+    } else if (nameFilterBy === "all" && !futureClassesOnly) {
+      return class_.date.slice(0, class_.date.indexOf("T")) === dateFilterBy;
+    } else if (dateFilterBy === "all" && !futureClassesOnly) {
+      return class_.painting.name === nameFilterBy;
     } else if (dateFilterBy === "all") {
       // Only name filter is on
-      return class_.painting.name === nameFilterBy;
+      return (
+        class_.painting.name === nameFilterBy && new Date(class_.date) > today
+      );
     } else if (nameFilterBy === "all") {
       // Only date filter is on
-      return class_.date.slice(0, class_.date.indexOf("T")) === dateFilterBy;
+      return (
+        class_.date.slice(0, class_.date.indexOf("T")) === dateFilterBy &&
+        new Date(class_.date) > today
+      );
+    } else if (!futureClassesOnly) {
+      return (
+        class_.date.slice(0, class_.date.indexOf("T")) === dateFilterBy &&
+        class_.painting.name === nameFilterBy
+      );
     } else {
       // Both filters are on
       return (
@@ -56,33 +77,44 @@ const ClassesContainer = ({ classes, setClasses, paintings }) => {
       );
     }
   });
+  const handleChange = e => {
+    if (e.target.checked) {
+      setFutureClassesOnly(true);
+    } else {
+      setFutureClassesOnly(false);
+    }
+  };
 
-  console.log(datesForFilter);
   return (
     <div className="classes-container">
       <h1 className="classes-heading">Classes</h1>
-      <select
-        name="name-filter"
-        onChange={e => setNameFilterBy(e.target.value)}
-      >
-        <option value="all">-- Filter by Name --</option>
-        {paintings?.map(painting => (
-          <option key={painting.id} value={painting.name}>
-            {painting.name}
-          </option>
-        ))}
-      </select>
-      <select
-        name="date-filter"
-        onChange={e => setDateFilterBy(e.target.value)}
-      >
-        <option value="all">-- Filter by Date --</option>
-        {datesForFilter?.map(date => (
-          <option key={date} value={date}>
-            {date}
-          </option>
-        ))}
-      </select>
+      <div className="filters">
+        <select
+          name="name-filter"
+          onChange={e => setNameFilterBy(e.target.value)}
+        >
+          <option value="all">-- Filter by Name --</option>
+          {paintings?.map(painting => (
+            <option key={painting.id} value={painting.name}>
+              {painting.name}
+            </option>
+          ))}
+        </select>
+        <select
+          name="date-filter"
+          onChange={e => setDateFilterBy(e.target.value)}
+        >
+          <option value="all">-- Filter by Date --</option>
+          {datesForFilter?.map(date => (
+            <option key={date} value={date}>
+              {date}
+            </option>
+          ))}
+        </select>
+        <label>Future Dates Only?</label>
+        <input onChange={handleChange} type="checkbox" />
+      </div>
+
       {filteredClasses?.map(class_ => (
         <ClassCard key={class_.id} class_={class_} setClasses={setClasses} />
       ))}

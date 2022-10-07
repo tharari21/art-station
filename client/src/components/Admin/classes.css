@@ -55,3 +55,9 @@
     background-color: rgb(131, 131, 247);
     cursor: pointer;
 }
+.filters {
+    margin: 1em 2em;
+}
+.filters select {
+    margin: 0 1em;
+}

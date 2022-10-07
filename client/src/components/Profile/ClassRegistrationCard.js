@@ -6,14 +6,17 @@ const ClassRegistrationCard = ({ classRegistration }) => {
   );
   return (
     <div className="class-registration-card">
-      <h3>
+      <h2>
         Painting Name:{" "}
         {capitalize(classRegistration?.painting_class?.painting?.name)}
-      </h3>
+      </h2>
+      <div className="class-registration-card__info">
+
       <h6>
         Class Date: {weekday}, {month}/{day}/{year} at {time}
       </h6>
       <h6>Number of Students: {classRegistration?.number_of_students}</h6>
+      </div>
     </div>
   );
 };
