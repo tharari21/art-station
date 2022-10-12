@@ -38,7 +38,6 @@ const ProfileForm = ({ user }) => {
 
   return (
     <div className="profile-form">
-      <h1>Profile Information</h1>
       <div className="profile-details">
         <Editable
           text={user?.email}

@@ -39,10 +39,10 @@ class PartyRequest < ApplicationRecord
     end
     def valid_number_of_participants
         case self.package
-        when :local_train || :express_train || :a_train
-            errors.add(:number_of_participants, "must be at least 15") unless self.number_of_participants >= 15
-        when :adult_party
-            errors.add(:number_of_participants, "must be at least 10") unless self.number_of_participants >= 10
+            when "local_train" || "express_train" || "a_train"
+                errors.add(:number_of_participants, "must be at least 15") unless self.number_of_participants >= 15
+            when "adult_party"
+                errors.add(:number_of_participants, "must be at least 10") unless self.number_of_participants >= 10
         end
     end
 

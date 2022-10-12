@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import "./party-request-form.css";
 // import { ActionCableContext } from '../..'
-const PartyRequestForm = () => {
+const PartyRequestForm = ({ setIsModalOpen }) => {
   let tomorrow = new Date();
   tomorrow.setHours(4, 0, 0, 0);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -19,18 +19,7 @@ const PartyRequestForm = () => {
   const [childrensParty, setChildrensParty] = useState(true);
   const [errors, setErrors] = useState(null);
   const user = useSelector(state => state.user.value);
-  // const cable = useContext(ActionCableContext);
-  // const [partyRequestChannel, setPartyRequestChannel] = useState(null);
 
-  // useEffect(() => {
-  //   console.log('subscribed')
-  //   const channel = cable.subscriptions.create({ channel: "PartyRequestChannel" });
-  //   // setPartyRequestChannel(channel);
-  //   return () => {
-  //     // partyRequestChannel.unsubscribe();
-  //     channel.unsubscribe()
-  //   }
-  // }, [])
   useEffect(() => {
     if (user)
       setFormData({
@@ -41,7 +30,6 @@ const PartyRequestForm = () => {
       });
   }, [user]);
   const handleChange = e => {
-    console.log(e.target.value);
     if (e.target.name === "package") {
       if (e.target.value === "adult_party") {
         setChildrensParty(false);
@@ -64,7 +52,6 @@ const PartyRequestForm = () => {
     } else {
       partyRequestData = { ...formData };
     }
-    console.log(formData);
     // partyRequestChannel.send(formData);
     try {
       const req = await fetch("http://localhost:3000/party_requests", {
@@ -78,9 +65,7 @@ const PartyRequestForm = () => {
       const res = await req.json();
       if (req.ok) {
         console.log(res);
-        alert(
-          "You have successfully requested to book a party at the Art Station! An email has been sent to you with all the details. We will give you a call as soon as possible to discuss further"
-        );
+        // setIsModalOpen(true);
       } else {
         console.log(res);
         setErrors(res.errors);

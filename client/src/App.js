@@ -43,22 +43,21 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route index element={<Home />}></Route>
-        <Route path="/register" element={<Auth type="register" />}></Route>
-        <Route path="/login" element={<Auth type="login" />}></Route>
-        <Route path="/classes" element={<Classes />}></Route>
-        <Route path="/parties" element={<Parties />}></Route>
-        <Route path="/store" element={<Store />}></Route>
-        <Route path="/contact-us" element={<Contact />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route
-          path="/classes/:id/register/new"
-          element={<ClassRegister />}
-        ></Route>
-        <Route path="/calendar" element={<Calendar />}></Route>
+        <Route index element={<Home />} />
+        <Route path="/register" element={<Auth type="register" />} />
+        <Route path="/login" element={<Auth type="login" />} />
+        <Route path="/classes" element={<Classes />} />
+        <Route path="/parties" element={<Parties />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/classes/:id/register/new" element={<ClassRegister />} />
+        <Route path="/calendar" element={<Calendar />} />
         <Route element={<ProtectedAdminRoute user={user} isAdminPath={true} />}>
-          <Route path="/admin" element={<AdminDashboard />}></Route>
-          <Route path="/admin/classes/new" element={<ClassRegister />}></Route>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/classes/new" element={<ClassRegister />} />
+        </Route>
+        <Route element={<ProtectedAdminRoute user={user} />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
       <Footer />

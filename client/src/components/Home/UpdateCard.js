@@ -1,12 +1,11 @@
-
-const UpdateCard = ({update}) => {
-    console.log(update.body)
+const UpdateCard = ({ update }) => {
+  console.log(update.body);
   return (
-    <div>
-      <h1>{update.title}</h1>
+    <div className="update-card">
+      <h4>{update.title}</h4>
       <p>{update.body.body}</p>
     </div>
   );
-}
+};
 
-export default UpdateCard
+export default UpdateCard;

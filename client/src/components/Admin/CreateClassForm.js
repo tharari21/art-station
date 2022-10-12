@@ -37,7 +37,11 @@ const CreateClassForm = ({ addClass, paintings }) => {
   return (
     <form onSubmit={handleSubmit}>
       <label>Painting</label>
-      <select name="painting_id" onChange={handleChange}>
+      <select
+        className="painting-select"
+        name="painting_id"
+        onChange={handleChange}
+      >
         {paintings?.map(painting => (
           <option key={painting.id} value={painting.id}>
             {painting.name}

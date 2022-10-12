@@ -37,5 +37,5 @@ PaintingClass.create!(date: DateTime.now+168.hours, max_capacity: 20, price: 30,
 PaintingClass.create!(date: DateTime.now+2.weeks, max_capacity: 20, price: 30, painting: p2)
 PaintingClass.create!(date: DateTime.now+2.weeks+4.hours, max_capacity: 20, price: 30, painting: p3)
 PaintingClass.create!(date: DateTime.now+2.weeks+1.day, max_capacity: 20, price: 30, painting: p1)
-PaintingClass.create!(date: DateTime.now+2.weeks+1.day-4.hours, max_capacity: 20, price: 30, painting: p2)
+PaintingClass.create!(date: DateTime.now+2.weeks+1.day+3.hours, max_capacity: 20, price: 30, painting: p2)
 PaintingClass.create!(date: DateTime.now+2.weeks+2.days, max_capacity: 20, price: 30, painting: p3)

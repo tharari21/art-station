@@ -11,8 +11,7 @@ const AdminDashboard = () => {
   const [classes, setClasses] = useState(null);
   const [classErrors, setClassErrors] = useState(null);
   const [paintingErrors, setPaintingErrors] = useState(null);
-  const [displayForm, setDisplayForm] = useState("class");
-  const inverted = displayForm === "class" ? "painting" : "class";
+  const [displayCreateClassForm, setDisplayCreateClassForm] = useState(true);
   useEffect(() => {
     const getPaintings = async () => {
       try {
@@ -51,11 +50,22 @@ const AdminDashboard = () => {
     setPaintings([...paintings, newPainting]);
   };
   const addClass = newClass => {
-    setClasses([...classes, newClass]);
+    setClasses(prev => {
+      let pushed = false;
+      const newClassDate = new Date(newClass.date);
+      return prev.reduce((items, cur) => {
+        if (!pushed) {
+          if (newClassDate < new Date(cur.date)) {
+            items.push(newClass);
+            pushed = true;
+          }
+        }
+        items.push(cur);
+        return items;
+      }, []);
+    });
   };
-  const toggleForm = () => {
-    setDisplayForm(inverted);
-  };
+  
 
   return (
     <div>
@@ -71,10 +81,25 @@ const AdminDashboard = () => {
         />
       </div>
       <div className="class-painting-form-container">
-        <button className="toggle-form-btn" onClick={toggleForm}>
-          Create {capitalize(inverted)}
-        </button>
-        {displayForm === "class" ? (
+        <div className="toggle-form-buttons">
+          <button
+            className={`toggle-form-btn${
+              displayCreateClassForm ? " current-tab" : ""
+            }`}
+            onClick={() => setDisplayCreateClassForm(true)}
+          >
+            Create Class
+          </button>
+          <button
+            className={`toggle-form-btn${
+              displayCreateClassForm ? "" : " current-tab"
+            }`}
+            onClick={() => setDisplayCreateClassForm(false)}
+          >
+            Create Painting
+          </button>
+        </div>
+        {displayCreateClassForm ? (
           <CreateClassForm paintings={paintings} addClass={addClass} />
         ) : (
           <CreatePaintingForm addPainting={addPainting} />

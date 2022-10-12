@@ -6,8 +6,11 @@
     background-color: black;
     color: white;
     width: 200px;
-    height: 30px;
+    height: 50px;
     padding: .3em .4em;
     font-size: 1.2em;
     margin: 1em;
+}
+.current-tab {
+    border: 5px solid red;
 }
