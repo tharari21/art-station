@@ -31,7 +31,7 @@ class PartyRequest < ApplicationRecord
         # TODO: Check party package. if its local then 1.5 hours... add this logic
         # This method checks if there is any party within 2 hours of this party
         dates = PartyRequest.where(status: :confirmed).pluck(:date)
-        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 120}
+        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 119}
 
         if invalid_date
             errors.add(:date, "is not available. Another party is already booked at that time")

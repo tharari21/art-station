@@ -57,7 +57,7 @@ const Welcome = () => {
 
       {/* <h1>THIS WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1>
       <h1>NEXT WEEK'S CLASS DETAILS WITH SIGN UP NOW BUTTON</h1> */}
-      <UpdateContainer />
+      {/* <UpdateContainer />*/}
       {/* <div className="our-philosophy">
         <h1>What is the Art Station philosophy?</h1>
         <p>

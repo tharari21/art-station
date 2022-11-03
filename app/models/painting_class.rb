@@ -26,7 +26,7 @@ class PaintingClass < ApplicationRecord
         
         # This method checks if there is any party within 2 hours of this class
         dates = PaintingClass.pluck(:date)
-        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 120}
+        invalid_date = dates.any? { |date| ((date - self.date) / 1.minutes).abs <= 119}
         if invalid_date
             errors.add(:date, "is not available. Another class is already booked at that time")
         end

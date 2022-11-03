@@ -80,7 +80,4 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: art_station_production
-  username: art_station
-  password: <%= ENV["ART_STATION_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
