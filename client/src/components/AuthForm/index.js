@@ -25,7 +25,7 @@ const AuthForm = ({ type }) => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const user = useSelector(state => state.user.value);
+  const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   // render google login button
   useEffect(() => {
@@ -46,19 +46,20 @@ const AuthForm = ({ type }) => {
     return <Navigate to="/" replace />;
   }
   // google login / register handling
-  const responseGoogle = response => {
+  const responseGoogle = (response) => {
     // Callback when user logs in with google
     console.log(response);
     const userObject = jwt_decode(response.credential);
     console.log(userObject);
     loginOrRegister({ email: userObject.email });
   };
-  const responseFacebook = response => {
+  const responseFacebook = (response) => {
     console.log(response);
   };
   const componentClicked = () => {};
   // parent function to login / register
-  const loginOrRegister = async payload => {
+  const loginOrRegister = async (payload) => {
+    console.log(payload);
     const req = await fetch(`http://localhost:3000/${type}`, {
       method: "POST",
       credentials: "include",
@@ -78,11 +79,12 @@ const AuthForm = ({ type }) => {
       setErrors(res);
     }
   };
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     loginOrRegister(formData);
   };
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
@@ -152,6 +154,7 @@ const AuthForm = ({ type }) => {
             callback={responseFacebook}
           /> */}
         </div>
+        {errors && <p>{errors}</p>}
       </div>
     </div>
   );

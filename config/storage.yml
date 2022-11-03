@@ -6,6 +6,7 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
 
+# Note that to access credentials file run rails credentials:edit. To do this on a new computer make a master.key file in config/ that has the same key as this project.
 amazon:
   service: S3
   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>

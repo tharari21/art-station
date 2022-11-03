@@ -46,15 +46,17 @@ const AdminDashboard = () => {
     getClasses();
     getPaintings();
   }, []);
-  const addPainting = newPainting => {
+  const addPainting = (newPainting) => {
     setPaintings([...paintings, newPainting]);
   };
-  const addClass = newClass => {
-    setClasses(prev => {
+  const addClass = (newClass) => {
+    setClasses((prev) => {
       let pushed = false;
       const newClassDate = new Date(newClass.date);
       return prev.reduce((items, cur) => {
         if (!pushed) {
+          console.log(newClassDate);
+          console.log(new Date(cur.date));
           if (newClassDate < new Date(cur.date)) {
             items.push(newClass);
             pushed = true;
@@ -65,7 +67,6 @@ const AdminDashboard = () => {
       }, []);
     });
   };
-  
 
   return (
     <div>

@@ -8,7 +8,6 @@ const ClassCard = ({ class_, setClasses }) => {
   const [errors, setErrors] = useState(null);
   const [isOpened, setIsOpened] = useState(false);
 
-  
   const displayRegistered = () => {
     if (!isOpened) {
       setRegistered(() => {
@@ -26,7 +25,7 @@ const ClassCard = ({ class_, setClasses }) => {
       method: "DELETE",
     });
     if (req.ok) {
-      setClasses(prev => prev.filter(item => item.id !== class_.id));
+      setClasses((prev) => prev.filter((item) => item.id !== class_.id));
     } else {
     }
   };
@@ -49,7 +48,7 @@ const ClassCard = ({ class_, setClasses }) => {
       </div>
       {isOpened && (
         <ul className="registered">
-          {registered?.map(reservation => (
+          {registered?.map((reservation) => (
             <RegisteredForClassCard
               key={reservation.id}
               reservation={reservation}

@@ -4,12 +4,11 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 import { convertDate } from "../utils/util";
 import { ActionCableContext } from "../..";
-
 const stripePromise = loadStripe(
   "pk_test_51LlFBUCvxdyaKhHoHl5h6LfinnLpjZNvYsRlKbQtGTwK9nU3qXQLKbhXtAOSHKJWQjoyeChgJ7NB40pClUMqQPIh00lvBR3gzh"
 );
 const RegisterClassForm = () => {
-  const user = useSelector(state => state.user.value);
+  const user = useSelector((state) => state.user.value);
   const [formData, setFormData] = useState({
     number_of_students: 1,
     name: "",
@@ -43,7 +42,7 @@ const RegisterClassForm = () => {
   }, [user]);
   const { weekday, month, day, year, time } = convertDate(date);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     if (e.target.type === "number") {
       setFormData(() => ({
         ...formData,
@@ -53,7 +52,7 @@ const RegisterClassForm = () => {
       setFormData(() => ({ ...formData, [e.target.name]: e.target.value }));
     }
   };
-  const createCheckoutSession = async e => {
+  const createCheckoutSession = async (e) => {
     e.preventDefault();
     const stripe = await stripePromise;
     let registrationData;

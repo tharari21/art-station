@@ -13,6 +13,7 @@
     "actioncable": "^5.2.8-1",
     "framer-motion": "^7.4.0",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-facebook-login": "^4.1.1",
@@ -25,6 +26,7 @@
   },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
+    "start-pc": "set PORT=4000&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
