@@ -12,18 +12,22 @@ table {
   flex-direction: column;
   align-items: center;
 }
+.calendar {
+  max-width: 100%;
+}
+
 .selectors {
   display: flex;
   gap: 8em;
 }
 .calendar-month {
-  width: 15%;
+  width: 100%;
+  
 }
 .calendar-day {
   padding: 0;
-  width: 200px;
-  height: 200px;
-  margin: 0;
+  width: minmax(100px,300px);
+  height: 300px;
   border: 1px solid rgb(192, 192, 192);
 }
 .empty {
@@ -57,6 +61,66 @@ table {
   background-color: rgb(26, 115, 232);
   border-radius: 12px;
   color: white;
-  padding: 0.6em 0.3em;
+  width: 100%;
+  padding: 1.2em 0.8em;
   margin-bottom: 0.6em;
+}
+.month {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1.2em;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+}
+.month:hover {
+  background-color:rgb(164, 164, 237) ;
+  cursor: pointer;
+  
+}
+.month-select {
+  width: 150px;
+  position: absolute;
+}
+.month-select-row {
+  height: 40px;
+  
+}
+.month-select-cell {
+  border-radius: 12px;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.month-select-cell:hover {
+  cursor: pointer;
+  background-color: rgb(164, 164, 237);
+}
+.year {
+  background-color: rgba(0, 0, 0, 0.4);
+    padding: 1.2em;
+    border-radius: 12px;
+    text-align: center;
+    width: 100%;
+}
+.year:hover {
+      background-color: rgb(164, 164, 237);
+      cursor: pointer;
+}
+.year-select {
+    width: 150px;
+  position: absolute;
+
+}
+.year-select-cell {
+  border-radius: 12px;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 45px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+
+}
+.year-select-cell:hover {
+    cursor: pointer;
+      background-color: rgb(164, 164, 237);
 }

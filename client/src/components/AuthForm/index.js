@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from "react-facebook-login";
 import jwt_decode from "jwt-decode";
 import { login } from "../../redux/user";
 import "./form.css";
@@ -34,6 +34,7 @@ const AuthForm = ({ type }) => {
       client_id: process.env.GOOGLE_CLIENT_ID,
       callback: responseGoogle,
     });
+
     google.accounts.id.renderButton(
       document.getElementById("signInWithGoogle"),
       { theme: "dark", size: "large" }

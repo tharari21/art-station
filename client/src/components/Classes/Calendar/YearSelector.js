@@ -1,7 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import moment from "moment";
-const YearSelector = ({ dateObject, setDateObject }) => {
-  const currentYear = dateObject.format("Y");
+const YearSelector = ({ currentDay, dateObject, setDateObject }) => {
+  const currentYear = currentDay.format("Y");
+  const selectedYear = dateObject.format("Y");
+  const [showYearTable, setShowYearTable] = useState(false);
 
   const yearTable = () => {
     let months = [];
@@ -21,14 +23,15 @@ const YearSelector = ({ dateObject, setDateObject }) => {
       }
       return dateArray;
     };
-    const twelveYears = getDates(currentYear, tenYearsFromNow);
-    twelveYears.map((data) => {
+    const twelveYears = getDates(currentDay, tenYearsFromNow);
+    twelveYears.map(data => {
       months.push(
         <td
           key={data}
-          className="calendar-month"
-          onClick={(e) => {
+          className="year-select-cell"
+          onClick={e => {
             setDateObject(() => moment(dateObject).set("year", data));
+            setShowYearTable(() => false);
           }}
         >
           <span>{data}</span>
@@ -49,17 +52,22 @@ const YearSelector = ({ dateObject, setDateObject }) => {
     });
     rows.push(cells);
     let yearlist = rows.map((d, i) => {
-      return <tr>{d}</tr>;
+      return <tr className="year-select-row">{d}</tr>;
     });
 
     return (
       <table className="calendar-month">
         <thead>
           <tr>
-            <th colSpan="4">Select a Year</th>
+            <th
+              className="year"
+              onClick={() => setShowYearTable(prev => !prev)}
+            >
+              {selectedYear}
+            </th>
           </tr>
         </thead>
-        <tbody>{yearlist}</tbody>
+        {showYearTable && <tbody className="year-select">{yearlist}</tbody>}
       </table>
     );
   };

@@ -5,14 +5,15 @@ const MonthSelector = ({ dateObject, setDateObject }) => {
   const [showMonthTable, setShowMonthTable] = useState(false);
   const allMonths = moment.monthsShort();
 
-  const months = allMonths.map((month) => (
+  const months = allMonths.map(month => (
     <td
-      onClick={() =>
+      onClick={() => {
         setDateObject(() =>
           moment(dateObject).set("month", allMonths.indexOf(month))
-        )
-      }
-      className="month-select-row"
+        );
+        setShowMonthTable(false);
+      }}
+      className="month-select-cell"
     >
       <span>{month}</span>
     </td>
@@ -39,12 +40,11 @@ const MonthSelector = ({ dateObject, setDateObject }) => {
 
   return (
     <div className="month-select-container">
-      <div className="month" onClick={() => setShowMonthTable((prev) => !prev)}>
+      <div className="month" onClick={() => setShowMonthTable(prev => !prev)}>
         <h1>{dateObject.format("MMMM")}</h1>
       </div>
       {showMonthTable && (
         <table className="month-select">
-          <thead></thead>
           <tbody>{monthList()}</tbody>
         </table>
       )}

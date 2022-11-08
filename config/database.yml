@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: art_station_development
-  username: postgres
+  username: tomerharari
   password: nintendo
 
   # The specified database role being used to connect to postgres.

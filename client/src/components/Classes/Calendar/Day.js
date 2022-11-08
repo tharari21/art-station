@@ -1,6 +1,7 @@
 import "./calendar.css";
+import Event from "./Event";
 
-const Day = ({ day, isToday, event }) => {
+const Day = ({ day, isToday, events }) => {
   return (
     <td>
       <div className={`calendar-day`}>
@@ -12,15 +13,15 @@ const Day = ({ day, isToday, event }) => {
           </h3>
         </div>
         <div className="events">
-          {event &&
-            event.map((class_) => (
-              <div onMouseOver className="event" key={class_.id}>
-                {new Date(class_.date).toLocaleTimeString("en-US", {
-                  timeStyle: "short",
-                  timeZone: "UTC",
-                })}{" "}
-                Art Class (Kids/Adults)
-              </div>
+          {events &&
+            (events.length < 3 ? (
+              events.map(class_ => <Event class_={class_} />)
+            ) : (
+              <>
+                <Event class_={events[0]} />
+                <Event class_={events[1]} />
+                <p>+ {events.length - 2} other events</p>
+              </>
             ))}
         </div>
       </div>

@@ -7,11 +7,10 @@ import YearSelector from "./YearSelector";
 
 const Calendar = ({ classes }) => {
   const [dateObject, setDateObject] = useState(moment());
-  const [today, setToday] = useState(dateObject.format("d"));
-  const currentDay = dateObject.format("D");
+  const [currentDay, setCurrentDay] = useState(moment());
   const firstDayOfTheMonth = dateObject.startOf("month").format("d");
   // returns array of days of week as Mon,Tue,etc
-  const weekdays = moment.weekdaysShort().map((weekday) => (
+  const weekdays = moment.weekdaysShort().map(weekday => (
     <th key={weekday} className="weekday">
       {weekday}
     </th>
@@ -42,10 +41,13 @@ const Calendar = ({ classes }) => {
     }
     const daysInMonth = [];
     for (let day = 1; day < dateObject.daysInMonth(); day++) {
-      let isToday = day == currentDay;
+      let isToday =
+        day == currentDay.format("D") &&
+        dateObject.format("M") === currentDay.format("M") &&
+        dateObject.format("YYYY") === currentDay.format("YYYY");
 
       daysInMonth.push(
-        <Day key={day} day={day} isToday={isToday} event={events[day]} />
+        <Day key={day} day={day} isToday={isToday} events={events[day]} />
       );
     }
     const totalSlots = [...blanks, ...daysInMonth];
@@ -66,7 +68,6 @@ const Calendar = ({ classes }) => {
       }
     });
     // rows is now a 2D array where each row is a week and each item in week is a day.
-    console.log(rows);
     // Make each week in rows a tr and then each item in rows[i] is a td of a day
     return rows.map((d, i) => {
       return <tr key={i}>{d}</tr>;
@@ -77,7 +78,11 @@ const Calendar = ({ classes }) => {
     <div className="calendar-view">
       <div className="selectors">
         <MonthSelector dateObject={dateObject} setDateObject={setDateObject} />
-        <YearSelector dateObject={dateObject} setDateObject={setDateObject} />
+        <YearSelector
+          currentDay={currentDay}
+          dateObject={dateObject}
+          setDateObject={setDateObject}
+        />
       </div>
       <div className="calendar-container">
         <table className="calendar">

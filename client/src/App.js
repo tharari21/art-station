@@ -12,13 +12,12 @@ import Classes from "./pages/Classes/Classes";
 import Parties from "./pages/Parties/Parties";
 import ClassRegister from "./pages/Classes/ClassRegister";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import Calendar from "./pages/Calendar";
 import ProtectedAdminRoute from "./components/utils/AuthRoute";
 import Store from "./pages/Store/Store";
 import Profile from "./pages/Profile";
 
 function App() {
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
   const checkLoginStatus = async () => {
     try {
@@ -51,7 +50,6 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/classes/:id/register/new" element={<ClassRegister />} />
-        <Route path="/calendar" element={<Calendar />} />
         <Route element={<ProtectedAdminRoute user={user} isAdminPath={true} />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/classes/new" element={<ClassRegister />} />
