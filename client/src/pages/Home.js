@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
-import Welcome from "../components/Home/Welcome";
 import "./pages.css";
+import Hero from "../components/Home/Hero";
+import Activities from "../components/Home/Activities";
+import Gallery from "../components/Home/Gallery";
 const Home = () => {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -27,7 +29,9 @@ const Home = () => {
 
   return (
     <main>
-      <Welcome />
+      <Hero />
+      <Activities />
+      <Gallery />
       {message && (
         <div className={`alert ${success ? "success" : "error"}`}>
           <FiAlertCircle size={40} style={{ marginRight: "2em" }} />

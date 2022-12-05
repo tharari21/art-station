@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-
+import styles from "./calendar.module.css";
 const MonthSelector = ({ dateObject, setDateObject }) => {
   const [showMonthTable, setShowMonthTable] = useState(false);
   const allMonths = moment.monthsShort();
@@ -13,7 +13,7 @@ const MonthSelector = ({ dateObject, setDateObject }) => {
         );
         setShowMonthTable(false);
       }}
-      className="month-select-cell"
+      className={styles["month-select-cell"]}
     >
       <span>{month}</span>
     </td>
@@ -34,17 +34,20 @@ const MonthSelector = ({ dateObject, setDateObject }) => {
       }
     });
     return rows.map((d, i) => {
-      return <tr className="month-select-row">{d}</tr>;
+      return <tr className={styles["month-select-row"]}>{d}</tr>;
     });
   };
 
   return (
-    <div className="month-select-container">
-      <div className="month" onClick={() => setShowMonthTable(prev => !prev)}>
+    <div className={styles["month-select-container"]}>
+      <div
+        className={styles.month}
+        onClick={() => setShowMonthTable(prev => !prev)}
+      >
         <h1>{dateObject.format("MMMM")}</h1>
       </div>
       {showMonthTable && (
-        <table className="month-select">
+        <table className={styles["month-select"]}>
           <tbody>{monthList()}</tbody>
         </table>
       )}

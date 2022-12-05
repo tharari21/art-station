@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import "./calendar.css";
+import styles from "./calendar.module.css";
 import Day from "./Day";
 import MonthSelector from "./MonthSelector";
 import YearSelector from "./YearSelector";
@@ -10,8 +10,8 @@ const Calendar = ({ classes }) => {
   const [currentDay, setCurrentDay] = useState(moment());
   const firstDayOfTheMonth = dateObject.startOf("month").format("d");
   // returns array of days of week as Mon,Tue,etc
-  const weekdays = moment.weekdaysShort().map(weekday => (
-    <th key={weekday} className="weekday">
+  const weekdays = moment.weekdaysShort().map((weekday, i) => (
+    <th key={i} className={styles.weekday}>
       {weekday}
     </th>
   ));
@@ -37,7 +37,9 @@ const Calendar = ({ classes }) => {
     // Blank days before first day of month
     const blanks = [];
     for (let i = 0; i < firstDayOfTheMonth; i++) {
-      blanks.push(<td className="calendar-day empty">{""}</td>);
+      blanks.push(
+        <td className={`${styles["calendar-day"]} ${styles.empty}`}>{""}</td>
+      );
     }
     const daysInMonth = [];
     for (let day = 1; day < dateObject.daysInMonth(); day++) {
@@ -75,8 +77,8 @@ const Calendar = ({ classes }) => {
   };
 
   return (
-    <div className="calendar-view">
-      <div className="selectors">
+    <div className={styles["calendar-view"]}>
+      <div className={styles.selectors}>
         <MonthSelector dateObject={dateObject} setDateObject={setDateObject} />
         <YearSelector
           currentDay={currentDay}
@@ -84,10 +86,10 @@ const Calendar = ({ classes }) => {
           setDateObject={setDateObject}
         />
       </div>
-      <div className="calendar-container">
-        <table className="calendar">
+      <div className={styles["calendar-container"]}>
+        <table className={styles.calendar}>
           <thead>
-            <tr className="weekdays">{weekdays}</tr>
+            <tr className={styles.weekdays}>{weekdays}</tr>
           </thead>
           <tbody>{dayList()}</tbody>
         </table>

@@ -1,10 +1,14 @@
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/user";
-import { AiFillCaretDown } from "react-icons/ai";
-import "./navbar.css";
+import { FaBars } from "react-icons/fa";
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleNavOpen = () => {
+    setIsOpen(prev => !prev);
+  };
   const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,64 +24,93 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
-      <div className="navbar">
-        <ul className="navbar__menu">
-          <NavLink className="navbar__link" to="/">
-            <li className="navbar__item">Home</li>
-          </NavLink>
-          <NavLink className="navbar__link" to="/classes">
-            <li className="navbar__item">Classes</li>
-          </NavLink>
-          <NavLink className="navbar__link navbar__item--hoverable" to="/store">
-            <li className="navbar__item">
+    <nav className="w-full min-h-[50px] flex justify-between items-center z-10 bg-gray-700/80 text-2xl h-20">
+      <div className="hidden sm:block px-4">
+        <ul className="flex justify-between gap-6 items-center px-6">
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/classes">Classes</NavLink>
+          </li>
+          <li>
+            <NavLink to="/store">
               Supplies
               {/* <AiFillCaretDown size=".5em" style={{ float: "left" }} /> */}
-            </li>
-            {/* <Dropdown /> */}
-          </NavLink>
-          <NavLink className="navbar__link" to="/parties">
-            <li className="navbar__item">Parties</li>
-          </NavLink>
-          <NavLink className="navbar__link" to="/framing">
-            <li className="navbar__item">Framing</li>
-          </NavLink>
-          {/* <NavLink className="navbar__link" to="/calendar">
-            <li className="navbar__item">Calendar</li>
-          </NavLink> */}
+              {/* <Dropdown /> */}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/parties">Parties</NavLink>
+          </li>
+          <li>
+            <NavLink to="/framing">Framing</NavLink>
+          </li>
         </ul>
-        <ul className="navbar__menu navbar__menu--auth">
+      </div>
+      <div className="hidden sm:block">
+        <ul className="flex justify-between gap-6 items-center px-6">
           {user ? (
             <>
               {user.admin && (
-                <NavLink className="navbar__link" to="/admin">
-                  <li className="navbar__item navbar__item--auth">Admin</li>
-                </NavLink>
+                <li>
+                  <NavLink to="/admin">Admin</NavLink>
+                </li>
               )}
-              <button
-                onClick={handleLogout}
-                className="navbar__link navbar__logout"
-              >
-                <li className="navbar__item navbar__item--auth">Logout</li>
-              </button>
-              <NavLink className="navbar__link" to="/profile">
-                <li className="navbar__item navbar__item--auth">
+              <li>
+                <NavLink to="/profile">
                   {user.first_name &&
                     user.first_name.slice(0, 1).toUpperCase() +
                       user.first_name.slice(1)}
-                </li>
-              </NavLink>
+                </NavLink>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
             </>
           ) : (
             <>
-              <NavLink className="navbar__link" to="/login">
-                <li className="navbar__item navbar__item--auth">Login</li>
-              </NavLink>
-              <NavLink className="navbar__link" to="/register">
-                <li className="navbar__item navbar__item--auth">Sign Up</li>
-              </NavLink>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+              <li>
+                <NavLink to="/register">Sign Up</NavLink>
+              </li>
             </>
           )}
+        </ul>
+      </div>
+      <div
+        onClick={toggleNavOpen}
+        className="sm:hidden z-10 w-full flex justify-end"
+      >
+        <FaBars size={20} className="mr-4 cursor-pointer" />
+      </div>
+      {/* Mobile Menu */}
+      <div
+        onClick={toggleNavOpen}
+        className={
+          isOpen
+            ? "overflow-y-hidden md:hidden ease-in duration-300 fixed z-20 text-gray-300 left-0 top-0 w-full h-screen bg-black/90 px-4 py-7 flex flex-col"
+            : "absolute top-0 h-screen left-[-100%] ease-in duration-500 "
+        }
+      >
+        <ul className="h-full w-full text-center pt-12">
+          <li className="text-2xl py-8">
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li className="text-2xl py-8">
+            <NavLink to="/classes">Classes</NavLink>
+          </li>
+          <li className="text-2xl py-8">
+            <NavLink to="/store">Supplies</NavLink>
+          </li>
+          <li className="text-2xl py-8">
+            <NavLink to="/parties">Parties</NavLink>
+          </li>
+          <li className="text-2xl py-8">
+            <NavLink to="/framing">Framing</NavLink>
+          </li>
         </ul>
       </div>
     </nav>

@@ -4,7 +4,6 @@ import ClassesContainer from "../../components/Admin/ClassesContainer";
 import CreateClassForm from "../../components/Admin/CreateClassForm";
 import CreatePaintingForm from "../../components/Admin/CreatePaintingForm";
 import { capitalize } from "../../components/utils/util";
-// import { TrixEditor } from "react-trix";
 import "./admin-dashboard.css";
 const AdminDashboard = () => {
   const [paintings, setPaintings] = useState(null);

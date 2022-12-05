@@ -1,8 +1,8 @@
 import React from "react";
-
+import styles from "./calendar.module.css";
 const Event = ({ class_ }) => {
   return (
-    <div className="event" key={class_.id}>
+    <div className={styles.event} key={class_.id}>
       {new Date(class_.date).toLocaleTimeString("en-US", {
         timeStyle: "short",
       })}{" "}

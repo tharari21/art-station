@@ -1,6 +1,7 @@
-import "./classes.css";
 import { useNavigate } from "react-router-dom";
+import { BsFillPersonFill } from "react-icons/bs";
 import { convertDate } from "../utils/util";
+
 const ClassCard = ({ classObj }) => {
   const navigate = useNavigate();
   const { weekday, month, day, year, time } = convertDate(classObj.date);
@@ -11,27 +12,39 @@ const ClassCard = ({ classObj }) => {
   };
   return (
     <div
-      className={`card${classObj.seats_available === 0 ? " sold-out" : ""}`}
+      className={`card cursor-pointer relative ${
+        classObj.seats_available === 0
+          ? "disabled:opacity-75 pointer-events-none cursor-not-allowed focus:outline-none"
+          : ""
+      }`}
       onClick={handleClick}
     >
       {classObj.seats_available === 0 && (
-        <div className="sold-out-label">SOLD OUT</div>
+        <div className="w-full h-[20%] bg-red-700/80 absolute top-[50%] ">
+          <h1 className="text-center text-6xl">SOLD OUT</h1>
+        </div>
       )}
-      <div
-        className="card__image"
-        style={{ backgroundImage: `url(${classObj.painting.image})` }}
-      ></div>
-      <div className="card__content">
-        <h3 className="card__name">
+      <img className="card__image h-[300px]" src={classObj.painting.image} />
+      <div className="px-4 py-6">
+        <h3 className="card__title">
           {classObj.painting.name.slice(0, 1).toUpperCase() +
             classObj.painting.name.slice(1)}
         </h3>
-        <div className="card__date">
+        <div className="">
           <p>{convertedDate}</p>
-          <p>Seats available: {classObj.seats_available}</p>
         </div>
       </div>
-      <p className="card__price">${classObj.price}</p>
+      <div className="flex justify-between bg-gray-200 relative bottom-0 m-0 h-8">
+        <div>
+          <p>
+            <BsFillPersonFill className="inline" />
+            Seats available: <span>{classObj.seats_available}</span>
+          </p>
+        </div>
+        <div>
+          <p className="">${classObj.price}</p>
+        </div>
+      </div>
     </div>
   );
 };

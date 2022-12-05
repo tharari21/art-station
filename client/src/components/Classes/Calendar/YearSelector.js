@@ -1,5 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
+import styles from "./calendar.module.css";
 const YearSelector = ({ currentDay, dateObject, setDateObject }) => {
   const currentYear = currentDay.format("Y");
   const selectedYear = dateObject.format("Y");
@@ -28,7 +29,7 @@ const YearSelector = ({ currentDay, dateObject, setDateObject }) => {
       months.push(
         <td
           key={data}
-          className="year-select-cell"
+          className={styles["year-select-cell"]}
           onClick={e => {
             setDateObject(() => moment(dateObject).set("year", data));
             setShowYearTable(() => false);
@@ -52,22 +53,24 @@ const YearSelector = ({ currentDay, dateObject, setDateObject }) => {
     });
     rows.push(cells);
     let yearlist = rows.map((d, i) => {
-      return <tr className="year-select-row">{d}</tr>;
+      return <tr className={styles["year-select-row"]}>{d}</tr>;
     });
 
     return (
-      <table className="calendar-month">
+      <table className={styles["calendar-month"]}>
         <thead>
           <tr>
             <th
-              className="year"
+              className={styles.year}
               onClick={() => setShowYearTable(prev => !prev)}
             >
               {selectedYear}
             </th>
           </tr>
         </thead>
-        {showYearTable && <tbody className="year-select">{yearlist}</tbody>}
+        {showYearTable && (
+          <tbody className={styles["year-select"]}>{yearlist}</tbody>
+        )}
       </table>
     );
   };

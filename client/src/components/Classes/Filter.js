@@ -1,6 +1,5 @@
-import "./filter.css";
-import { convertDate } from "../utils/util";
 import Tags from "./Tags";
+// IDEA - put filers on the left hand side like amazon
 const Filter = ({
   classes,
   setNameFilterBy,
@@ -30,12 +29,12 @@ const Filter = ({
   }, []);
 
   return (
-    <div className="filter-container">
+    <div className="w-full">
       <select
         onChange={e => setNameFilterBy(e.target.value)}
-        className="filter-item painting-filter"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-48 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option value="all">-- Filter By Painting --</option>
+        <option value="all">Select Painting</option>
         {paintings?.map((painting, i) => {
           return (
             <option key={painting.id} value={painting.name}>
@@ -46,9 +45,9 @@ const Filter = ({
       </select>
       <select
         onChange={e => setDateFilterBy(e.target.value)}
-        className="filter-item date-filter"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-48 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option value="all">-- Filter By Date --</option>
+        <option value="all">Select Date</option>
         {dates?.map(date => (
           <option key={date} value={date}>
             {date}
